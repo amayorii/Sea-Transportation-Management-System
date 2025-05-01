@@ -1,24 +1,68 @@
-﻿namespace Sea_Transportation_Management_System.Model.Vessels;
-public enum VesselType
-{
-    ContainerVessel,
-    Tanker,
-    PassengerVessel
-}
+﻿using System.Windows;
+using Sea_Transportation_Management_System.Model.Interfaces;
+
+namespace Sea_Transportation_Management_System.Model.Vessels;
+
 public enum VesselStatus
 {
     Unknown,
     WaitingInPort,
     OnVoyage
 }
-public class Vessel
+public abstract class Vessel : IRefuelable
 {
-    public int Length { get; protected set; }
-    public int Width { get; protected set; }
-    public int Height { get; protected set; }
-    public float Capacity { get; protected set; }
-    public float Fuel { get; protected set; }
-    public VesselType Type { get; protected set; }
-    public VesselStatus Status { get; protected set; }
+    public Vessel(int id, string? name, double cargoCapacity, float fuelCapacity)
+    {
+        Name = name;
+        Id = id;
+        Capacity = cargoCapacity;
+        FuelCapacity = fuelCapacity;
+    }
+    public string? Name { get; protected set; }
+    public VesselStatus Status { get; set; }
 
+    public int Id
+    {
+        get { return Id; }
+        protected set
+        {
+            if (Id < 0)
+            {
+                MessageBox.Show("Id cannot be negative!");
+                return;
+            }
+        }
+    }
+    public double Capacity
+    {
+        get { return Capacity; }
+        protected set
+        {
+            if (Capacity <= 0)
+            {
+                MessageBox.Show("Capacity must be greater than zero!");
+                return;
+            }
+        }
+    }
+    public float Fuel { get; protected set; }
+    public float FuelCapacity
+    {
+        get { return FuelCapacity; }
+        protected set
+        {
+            if (FuelCapacity < 50)
+            {
+                MessageBox.Show("Fuel capacity must be at least 50!");
+                return;
+            }
+        }
+    }
+
+    public abstract double CalculateFuelConsumption(double distance); // в різних типах суден різні витрати в залежності від типу та вантажу
+
+    public void Refuel(float amount)
+    {
+        Fuel = Fuel + amount > FuelCapacity ? FuelCapacity : Fuel + amount;
+    }
 }
