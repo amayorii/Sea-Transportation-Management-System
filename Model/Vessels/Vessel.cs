@@ -11,6 +11,9 @@ public enum VesselStatus
 }
 public abstract class Vessel : IRefuelable
 {
+    private int _id;
+    private double _capacity;
+    private float _fuelCapacity;
     public Vessel(int id, string? name, double cargoCapacity, float fuelCapacity)
     {
         Name = name;
@@ -23,39 +26,37 @@ public abstract class Vessel : IRefuelable
 
     public int Id
     {
-        get { return Id; }
+        get { return _id; }
         protected set
         {
-            if (Id < 0)
-            {
-                MessageBox.Show("Id cannot be negative!");
-                return;
-            }
+            _id = value;
         }
     }
     public double Capacity
     {
-        get { return Capacity; }
+        get { return _capacity; }
         protected set
         {
-            if (Capacity <= 0)
+            if (value <= 0)
             {
                 MessageBox.Show("Capacity must be greater than zero!");
                 return;
             }
+            _capacity = value;
         }
     }
     public float Fuel { get; protected set; }
     public float FuelCapacity
     {
-        get { return FuelCapacity; }
+        get { return _fuelCapacity; }
         protected set
         {
-            if (FuelCapacity < 50)
+            if (value < 50)
             {
                 MessageBox.Show("Fuel capacity must be at least 50!");
                 return;
             }
+            _fuelCapacity = value;
         }
     }
 
@@ -63,6 +64,11 @@ public abstract class Vessel : IRefuelable
 
     public void Refuel(float amount)
     {
+        if (amount < 0)
+        {
+            MessageBox.Show("Cannot refuel for a negative value!");
+            return;
+        }
         Fuel = Fuel + amount > FuelCapacity ? FuelCapacity : Fuel + amount;
     }
 }

@@ -4,12 +4,13 @@ namespace Sea_Transportation_Management_System.Model.Vessels
 {
     class Tanker : Vessel
     {
+        private double _fluidWeight;
         public double FluidWeight
         {
-            get { return FluidWeight; }
+            get { return _fluidWeight; }
             set
             {
-                if (FluidWeight < 0)
+                if (_fluidWeight < 0)
                 {
                     MessageBox.Show("Weight cannot be negative!");
                     return;
@@ -23,7 +24,7 @@ namespace Sea_Transportation_Management_System.Model.Vessels
 
         public override double CalculateFuelConsumption(double distance)
         {
-            if (FluidWeight == default)
+            if (_fluidWeight == default)
             {
                 MessageBox.Show("Input a fluid weight!");
                 return 0;

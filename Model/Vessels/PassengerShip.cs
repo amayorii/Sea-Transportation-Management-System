@@ -4,16 +4,18 @@ namespace Sea_Transportation_Management_System.Model.Vessels
 {
     class PassengerShip : Vessel
     {
-        public double Passengers
+        private int _passengers;
+        public int Passengers
         {
-            get { return Passengers; }
+            get { return _passengers; }
             set
             {
-                if (Passengers < 0)
+                if (value < 0)
                 {
                     MessageBox.Show("Amount of passengers cannot be negative!");
                     return;
                 }
+                _passengers = value;
             }
         }
         public PassengerShip(int id, string? name, double cargoCapacity, float fuelCapacity) : base(id, name, cargoCapacity, fuelCapacity)
@@ -23,7 +25,7 @@ namespace Sea_Transportation_Management_System.Model.Vessels
 
         public override double CalculateFuelConsumption(double distance)
         {
-            if (Passengers == default)
+            if (_passengers == default)
             {
                 MessageBox.Show("Input amount of passengers!");
                 return 0;

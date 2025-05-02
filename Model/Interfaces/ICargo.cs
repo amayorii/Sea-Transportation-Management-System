@@ -2,7 +2,8 @@
 {
     interface ICargo
     {
-        public void LoadCargo(double weight);
-        public void UnloadCargo(double weight);
+        public void LoadCargo(ITransportable weight);
+        public void UnloadCargo(ITransportable weight);
+        public void ViewCargo();
     }
 }
