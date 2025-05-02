@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using Sea_Transportation_Management_System.Model.Interfaces;
+using Sea_Transportation_Management_System.Model.Vessels;
 
 namespace Sea_Transportation_Management_System.Model
 {
@@ -32,6 +33,15 @@ namespace Sea_Transportation_Management_System.Model
                 }
             }
             FuelStock += amount;
+        }
+        public void RefuelVessel(Vessel vessel, float amount)
+        {
+            if (FuelStock - amount < 0)
+            {
+                MessageBox.Show($"Cannot refuel {typeof(Vessel).Name} for {amount}. Fuel stock: {FuelStock}l");
+            }
+            FuelStock -= amount;
+            vessel.Refuel(amount);
         }
     }
 }

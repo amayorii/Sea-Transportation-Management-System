@@ -41,9 +41,9 @@ namespace Sea_Transportation_Management_System.Model.Vessels
                 return 0;
             }
             else if (FluidWeight == 0)
-                return distance * 1.3;
+                return distance * 1.1;
 
-            return distance * (1.3 + FluidWeight / Capacity / 4);
+            return distance * (1.1 + FluidWeight / Capacity / 4);
         }
 
         public void LoadCargo(ITransportable transportable)
