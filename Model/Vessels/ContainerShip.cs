@@ -7,7 +7,7 @@ namespace Sea_Transportation_Management_System.Model.Vessels
 {
     class ContainerShip : Vessel, ICargo
     {
-        private List<Container> _containerList = new List<Container>();
+        private readonly List<Container> _containerList = new List<Container>();
         private double _containersWeight;
         public List<Container> ContainerList
         {

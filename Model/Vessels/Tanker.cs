@@ -1,12 +1,13 @@
 ﻿using System.Text;
 using System.Windows;
 using Sea_Transportation_Management_System.Model.Interfaces;
+using Sea_Transportation_Management_System.Model.Transportable;
 
 namespace Sea_Transportation_Management_System.Model.Vessels
 {
     class Tanker : Vessel, ICargo
     {
-        private List<Barrel> _barrelList = new List<Barrel>();
+        private readonly List<Barrel> _barrelList = new List<Barrel>();
         private double _fluidWeight;
 
         public List<Barrel> BarrelList
