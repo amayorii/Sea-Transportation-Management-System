@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using MapControl;
 using Sea_Transportation_Management_System.Model.Interfaces;
 
 namespace Sea_Transportation_Management_System.Model.Vessels;
@@ -14,14 +15,15 @@ public abstract class Vessel : IRefuelable
     private int _id;
     private double _capacity;
     private float _fuelCapacity;
-    public Vessel(int id, string? name, double cargoCapacity, float fuelCapacity)
+    public Location Location { get; set; }
+    public Vessel(int id, string name, double cargoCapacity, float fuelCapacity)
     {
         Name = name;
         Id = id;
         Capacity = cargoCapacity;
         FuelCapacity = fuelCapacity;
     }
-    public string? Name { get; protected set; }
+    public string Name { get; protected set; }
     public VesselStatus Status { get; set; }
 
     public int Id
@@ -70,5 +72,10 @@ public abstract class Vessel : IRefuelable
             return;
         }
         Fuel = Fuel + amount > FuelCapacity ? FuelCapacity : Fuel + amount;
+    }
+
+    public override string ToString()
+    {
+        return $"Id: {Id}\nName: {Name}\t\tType: {GetType().Name}\nFuel: {Fuel}/{FuelCapacity}\t\tCapacity: {Capacity}\nStatus: {Status}";
     }
 }

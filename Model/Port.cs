@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using MapControl;
 using Sea_Transportation_Management_System.Model.Interfaces;
 using Sea_Transportation_Management_System.Model.Vessels;
 
@@ -6,21 +7,21 @@ namespace Sea_Transportation_Management_System.Model
 {
     public class Port : IRefuelable
     {
-        public Port(int id, string? name, Point? point, float fuelStock)
+        public Port(int id, string? name, Location location, float fuelStock)
         {
             Id = id;
             Name = name;
-            Point = point;
+            Location = location;
             FuelStock = fuelStock;
         }
 
         public int Id { get; protected set; }
         public string? Name { get; set; }
-        public Point? Point { get; private set; }
+        public Location Location { get; private set; }
         public float FuelStock { get; protected set; }
         public double CalculateDistanceTo(Port port)
         {
-            return Math.Sqrt(Math.Pow(port.Point.Value.X - Point.Value.X, 2) + Math.Pow(port.Point.Value.Y - Point.Value.Y, 2));
+            return Math.Sqrt(Math.Pow(port.Location.Latitude - Location.Latitude, 2) + Math.Pow(port.Location.Longitude - Location.Longitude, 2));
         }
         public void Refuel(float amount)
         {

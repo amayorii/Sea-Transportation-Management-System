@@ -11,11 +11,25 @@
 
   <ItemGroup>
     <None Remove=".gitignore" />
+    <None Remove="Images\port.png" />
+    <None Remove="Images\vessel.png" />
+    <None Remove="vessel.png" />
+    <None Remove="vessel1.png" />
+    <None Remove="vessel2.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="ViewModel\" />
     <Folder Include="View\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="XAML.MapControl.WPF" Version="13.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\port.png" />
+    <Resource Include="Images\vessel.png" />
   </ItemGroup>
 
 </Project>

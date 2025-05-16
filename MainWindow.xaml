@@ -4,9 +4,159 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sea_Transportation_Management_System"
+        xmlns:map="clr-namespace:MapControl;assembly=MapControl.WPF"
         mc:Ignorable="d"
-        Title="FleetSim" Height="700" Width="1200">
-    <Grid>
+        Title="SeaTransportationMS" Height="700" Width="1200"
+        WindowStartupLocation="CenterScreen"
+        Background="#2E236C"
+        Loaded="Window_Loaded">
+    
+    <!--styles-->
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Width" Value="75"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Background" Value="Azure"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="BorderBrush" Value="#C8ACD6"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="3">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="HotPink"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+            
+        <Style TargetType="ListBox">
+            <Setter Property="BorderThickness" Value="5"/>
+            <Setter Property="BorderBrush" Value="#C8ACD6"/>
+            <Setter Property="Background" Value="#433D8B"/>
+        </Style>
 
+        <Style TargetType="ListBoxItem">
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+
+        <Style TargetType="{x:Type map:MapItemsControl}">
+            <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                    <Style TargetType="map:MapItem">
+                        <Setter Property="Location" Value="{Binding Location}" />
+                        <Setter Property="HorizontalAlignment" Value="Center" />
+                        <Setter Property="VerticalAlignment" Value="Center" />
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="mapItemTB">
+            <Setter Property="Text" Value="{Binding Name}"/>
+            <Setter Property="Foreground" Value="SeaGreen"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontFamily" Value="Century"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+
+        <Style TargetType="Image" x:Key="mapItemImage">
+            <Setter Property="Width" Value="32"/>
+            <Setter Property="Height" Value="32"/>
+            <Setter Property="RenderTransformOrigin" Value="0.5, 0.5"/>
+        </Style>
+    </Window.Resources>
+    
+    <!--main grid-->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+
+        <!--vessels list-->
+        <ListBox x:Name="vesselsList"
+                 Margin="10"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListBox.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </ListBox.Resources>
+        </ListBox>
+        
+        <!--map-->
+        <Border Grid.Column="1" Grid.Row="0" Margin="5"
+                CornerRadius="10"
+                BorderBrush="#C8ACD6"
+                BorderThickness="4"
+                ClipToBounds="True">
+            
+            <map:Map x:Name="map" Grid.Row="0"
+                     ZoomLevel="5" Grid.Column="1"
+                     Center="46.4825,30.7233">
+
+                <!--map layer (geoapify)-->
+                <map:MapTileLayer>
+                    <map:MapTileLayer.TileSource>
+                        <map:TileSource UriTemplate="https://maps.geoapify.com/v1/tile/osm-bright/{z}/{x}/{y}.png?apiKey=2fa30e45fcef44c08a912bc9ab6664ba" />
+                    </map:MapTileLayer.TileSource>
+                </map:MapTileLayer>
+
+                <!--map vessel objects-->
+                <map:MapItemsControl ItemsSource="{Binding Vessels}">
+                    <map:MapItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical">
+                                <Image Style="{StaticResource mapItemImage}"
+                                       Source="/Images/vessel.png"/>
+                                <TextBlock Style="{StaticResource mapItemTB}"
+                                           Margin="0,-5,0,0"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </map:MapItemsControl.ItemTemplate>
+                </map:MapItemsControl>
+
+                <!--map port objects-->
+                <map:MapItemsControl ItemsSource="{Binding Ports}">
+                    <map:MapItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical">
+                                <Image Style="{StaticResource mapItemImage}"
+                                       Source="/Images/port.png"/>
+                                <TextBlock Style="{StaticResource mapItemTB}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </map:MapItemsControl.ItemTemplate>
+                </map:MapItemsControl>
+            </map:Map>
+            
+        </Border>
+
+        <!--control panel-->
+        <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal"
+                    HorizontalAlignment="Stretch"
+                    Margin="10">
+            <Button Margin="10,0,10,0" Content="Register new vessel"></Button>
+            <Button Margin="10,0,10,0"></Button>
+            <Button Margin="10,0,10,0"></Button>
+            <Button Margin="10,0,10,0"></Button>
+        </StackPanel>
     </Grid>
+    
 </Window>
