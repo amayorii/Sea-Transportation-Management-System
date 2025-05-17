@@ -44,5 +44,14 @@ namespace Sea_Transportation_Management_System.Model
             FuelStock -= amount;
             vessel.Refuel(amount);
         }
+        public override string ToString()
+        {
+            return $"Id: {Id}\n{"Name:",-7}{Name.Length switch
+            {
+                > 15 => $"{Name}\t",
+                < 3 => $"{Name,-20}\t\t",
+                _ => $"{Name,-10}\t\t"
+            }}Fuel stock: {FuelStock}\n{"Location: "}{Location}";
+        }
     }
 }
