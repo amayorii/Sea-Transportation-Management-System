@@ -13,14 +13,24 @@
     
     <!--styles-->
     <Window.Resources>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1"
+                             x:Key="listFrame">
+            <GradientStop Color="#9DACCC" Offset="0.0" />
+            <GradientStop Color="#485F88" Offset="0.25" />
+            <GradientStop Color="#384C65" Offset="0.75" />
+            <GradientStop Color="#C0C9DB" Offset="1.0" />
+        </LinearGradientBrush>
         <Style TargetType="Button">
-            <Setter Property="Width" Value="75"/>
-            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Height" Value="40"/>
             <Setter Property="Background" Value="Azure"/>
             <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="BorderBrush" Value="#C8ACD6"/>
-            <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="BorderBrush" Value="#AFB2AF"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontFamily" Value="Century"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -28,27 +38,122 @@
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 CornerRadius="3">
-                            <ContentPresenter HorizontalAlignment="Center"
-                                              VerticalAlignment="Center"/>
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="HotPink"/>
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation 
+                                    Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"
+                                    Duration="0:0:0.2"
+                                    To="#AFBFCF"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+
+                    <Trigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation 
+                                    Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"
+                                    Duration="0:0:0.2"
+                                    To="Azure"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.ExitActions>
+                </Trigger>
+
+                <Trigger Property="IsPressed" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation 
+                                    Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"
+                                    Duration="0:0:0.02"
+                                    To="#A0B0C0"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+
+                    <Trigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation 
+                                    Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"
+                                    Duration="0:0:0.03"
+                                    To="#AFBFCF"
+                                    FillBehavior="Stop"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.ExitActions>
                 </Trigger>
             </Style.Triggers>
         </Style>
             
         <Style TargetType="ListBox">
             <Setter Property="BorderThickness" Value="5"/>
-            <Setter Property="BorderBrush" Value="#C8ACD6"/>
+            <Setter Property="BorderBrush" Value="{StaticResource listFrame}"/>
             <Setter Property="Background" Value="#433D8B"/>
+            <Setter Property="Padding" Value="5"/>
         </Style>
 
         <Style TargetType="ListBoxItem">
             <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="Century Gothic"/>
+            <Setter Property="Margin" Value="0,0,0,3"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border CornerRadius="5" 
+                                Background="{TemplateBinding Background}">
+                            <ContentPresenter Margin="3"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation
+                                    Storyboard.TargetProperty="Foreground.(SolidColorBrush.Color)"
+                                    Duration="0:0:0.15"
+                                    To="Black"/>
+
+                                <ColorAnimation
+                                    Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"
+                                    Duration="0:0:0.3"
+                                    To="#C3E7F6"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                    
+                    <Trigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation
+                                    Storyboard.TargetProperty="Foreground.(SolidColorBrush.Color)"
+                                    Duration="0:0:0.15"
+                                    To="White"/>
+                                
+                                <ColorAnimation
+                                    Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"
+                                    Duration="0:0:0.3"
+                                    To="Transparent"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.ExitActions>
+                </Trigger>
+            </Style.Triggers>
         </Style>
 
         <Style TargetType="{x:Type map:MapItemsControl}">
@@ -81,6 +186,7 @@
     <!--main grid-->
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="0.3*"/>
             <RowDefinition Height="3*"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
@@ -89,26 +195,70 @@
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
 
+        <Label Content="Vessels" Grid.Row="0"
+               Grid.Column="0"
+               x:Name="vesselsBtn"
+               FontSize="30"
+               FontWeight="SemiBold"
+               FontFamily="Century"
+               Foreground="White"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Center"
+               VerticalContentAlignment="Center"
+               Margin="75,0,0,0"
+               MouseLeftButtonDown="vesselsBtn_MouseLeftButtonDown"
+               Cursor="Hand"/>
+
+        <Label Content="Ports" Grid.Row="0"
+               Grid.Column="0"
+               x:Name="portsBtn"
+               FontSize="30"
+               FontWeight="SemiBold"
+               FontFamily="Century"
+               Foreground="White"
+               HorizontalAlignment="Right"
+               VerticalAlignment="Center"
+               VerticalContentAlignment="Center"
+               Margin="0,0,75,0"
+               MouseLeftButtonDown="portsBtn_MouseLeftButtonDown"
+               Cursor="Hand"/>
+        
         <!--vessels list-->
         <ListBox x:Name="vesselsList"
-                 Margin="10"
+                 Grid.Row="1"
+                 Margin="10,0,10,10"
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListBox.Resources>
                 <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="10"/>
+                    <Setter Property="CornerRadius" Value="12"/>
                 </Style>
             </ListBox.Resources>
         </ListBox>
-        
+
+        <!--ports list-->
+        <ListBox x:Name="portsList"
+                 Visibility="Hidden"
+                 Grid.Row="1"
+                 Margin="10,0,10,10"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListBox.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="12"/>
+                </Style>
+            </ListBox.Resources>
+        </ListBox>
+
         <!--map-->
-        <Border Grid.Column="1" Grid.Row="0" Margin="5"
+        <Border Grid.Column="1" Grid.Row="0"
+                Grid.RowSpan="2"
+                Margin="10"
                 CornerRadius="10"
-                BorderBrush="#C8ACD6"
-                BorderThickness="4"
+                BorderBrush="#9DACCC"
+                BorderThickness="5"
                 ClipToBounds="True">
-            
-            <map:Map x:Name="map" Grid.Row="0"
-                     ZoomLevel="5" Grid.Column="1"
+
+            <map:Map x:Name="map"
+                     ZoomLevel="5"
                      Center="46.4825,30.7233">
 
                 <!--map layer (geoapify)-->
@@ -124,7 +274,8 @@
                         <DataTemplate>
                             <StackPanel Orientation="Vertical">
                                 <Image Style="{StaticResource mapItemImage}"
-                                       Source="/Images/vessel.png"/>
+                                       Source="/Images/vessel.png"
+                                       RenderOptions.BitmapScalingMode="HighQuality"/>
                                 <TextBlock Style="{StaticResource mapItemTB}"
                                            Margin="0,-5,0,0"/>
                             </StackPanel>
@@ -138,25 +289,72 @@
                         <DataTemplate>
                             <StackPanel Orientation="Vertical">
                                 <Image Style="{StaticResource mapItemImage}"
-                                       Source="/Images/port.png"/>
+                                       Source="/Images/port.png"
+                                       RenderOptions.BitmapScalingMode="Fant"/>
                                 <TextBlock Style="{StaticResource mapItemTB}"/>
                             </StackPanel>
                         </DataTemplate>
                     </map:MapItemsControl.ItemTemplate>
                 </map:MapItemsControl>
             </map:Map>
-            
+
         </Border>
 
         <!--control panel-->
-        <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal"
-                    HorizontalAlignment="Stretch"
-                    Margin="10">
-            <Button Margin="10,0,10,0" Content="Register new vessel"></Button>
-            <Button Margin="10,0,10,0"></Button>
-            <Button Margin="10,0,10,0"></Button>
-            <Button Margin="10,0,10,0"></Button>
+        <!--vessel-->
+        <StackPanel x:Name="vesselPanel"
+                    Orientation="Vertical"
+                    VerticalAlignment="Center"
+                    Grid.Row="2" Grid.Column="0"
+                    Visibility="Visible">
+
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Margin="0,10,0,10">
+                <Button Margin="0,0,10,0" Content="Refuel"/>
+                <Button Margin="10,0,0,0" Content="View cargo"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Margin="0,10,0,10">
+                <Button Margin="0,0,10,0" Content="Delete a vessel"/>
+                <Button Margin="10,0,0,0" Content="Register a vessel"/>
+            </StackPanel>
         </StackPanel>
+
+        <!--port-->
+        <StackPanel x:Name="portPanel"
+                    Orientation="Vertical"
+                    VerticalAlignment="Center"
+                    Grid.Row="2" Grid.Column="0"
+                    Visibility="Hidden">
+
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Margin="0,10,0,10">
+                <Button Margin="0,0,10,0" Content="Request fuel"/>
+                <Button Margin="10,0,0,0" Content="View warehouse"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Margin="0,10,0,10">
+                <Button Margin="0,0,10,0" Content="Delete a port"/>
+                <Button Margin="10,0,0,0" Content="Register a port"/>
+            </StackPanel>
+        </StackPanel>
+
+        <Button Content="Plan a voyage"
+                Grid.Column="1"
+                Grid.Row="2"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Margin="20"/>
     </Grid>
     
 </Window>

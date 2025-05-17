@@ -11,11 +11,6 @@
 
   <ItemGroup>
     <None Remove=".gitignore" />
-    <None Remove="Images\port.png" />
-    <None Remove="Images\vessel.png" />
-    <None Remove="vessel.png" />
-    <None Remove="vessel1.png" />
-    <None Remove="vessel2.png" />
   </ItemGroup>
 
   <ItemGroup>

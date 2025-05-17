@@ -76,6 +76,11 @@ public abstract class Vessel : IRefuelable
 
     public override string ToString()
     {
-        return $"Id: {Id}\nName: {Name}\t\tType: {GetType().Name}\nFuel: {Fuel}/{FuelCapacity}\t\tCapacity: {Capacity}\nStatus: {Status}";
+        return $"Id: {Id}\n{"Name:",-7}{Name.Length switch
+        {
+            > 15 => $"{Name}\t",
+            < 3 => $"{Name,-20}\t\t",
+            _ => $"{Name,-10}\t\t"
+        }}{"Fuel: ",-7}{Fuel}/{FuelCapacity}\n{"Type: ",-10}{GetType().Name,-10}\t\t{"Capacity: ",-11}{Capacity}\n{"Status: ",-10}{Status}";
     }
 }
