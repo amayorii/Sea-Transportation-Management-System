@@ -4,6 +4,7 @@ using System.Windows.Media;
 using MapControl;
 using Sea_Transportation_Management_System.Model;
 using Sea_Transportation_Management_System.Model.Vessels;
+using Sea_Transportation_Management_System.View;
 
 namespace Sea_Transportation_Management_System;
 
@@ -45,14 +46,14 @@ public partial class MainWindow : Window
         Vessels.Add(t1); // Sevastopol (Hypothetical)
         Vessels.Add(p1);
 
-        Port port = new Port(1, "Black Pearl", new Location(44.6500, 33.5200), 700);
+        Port port = new Port(1, "Black Pearl", new Location(44.6500, 33.5200), 700, 1500);
         Ports.Add(port);
 
         vesselsList.ItemsSource = Vessels;
         portsList.ItemsSource = Ports;
     }
 
-    private void vesselsBtn_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+    private void VesselsBtn_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
     {
         vesselsBtn.IsEnabled = false;
         portsBtn.IsEnabled = true;
@@ -64,7 +65,7 @@ public partial class MainWindow : Window
         portPanel.Visibility = Visibility.Hidden;
     }
 
-    private void portsBtn_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+    private void PortsBtn_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
     {
         portsBtn.IsEnabled = false;
         vesselsBtn.IsEnabled = true;
@@ -74,5 +75,17 @@ public partial class MainWindow : Window
 
         portPanel.Visibility = Visibility.Visible;
         vesselPanel.Visibility = Visibility.Hidden;
+    }
+
+    private void RegisterVessel(object sender, RoutedEventArgs e)
+    {
+        RegisterVesselWindow regVessel = new RegisterVesselWindow();
+        regVessel.ShowDialog();
+    }
+
+    private void RegisterPort(object sender, RoutedEventArgs e)
+    {
+        RegisterPortWindow registerPort = new RegisterPortWindow();
+        registerPort.ShowDialog();
     }
 }

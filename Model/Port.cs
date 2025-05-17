@@ -7,18 +7,22 @@ namespace Sea_Transportation_Management_System.Model
 {
     public class Port : IRefuelable
     {
-        public Port(int id, string? name, Location location, float fuelStock)
+        public Port(int id, string? name, Location location, float fuelStock, float warehouseCapacity)
         {
             Id = id;
             Name = name;
             Location = location;
             FuelStock = fuelStock;
+            CurrentCapacity = 0;
+            WarehouseCapacity = warehouseCapacity;
         }
 
         public int Id { get; protected set; }
         public string? Name { get; set; }
         public Location Location { get; private set; }
         public float FuelStock { get; protected set; }
+        public float CurrentCapacity { get; protected set; }
+        public float WarehouseCapacity { get; protected set; }
         public double CalculateDistanceTo(Port port)
         {
             return Math.Sqrt(Math.Pow(port.Location.Latitude - Location.Latitude, 2) + Math.Pow(port.Location.Longitude - Location.Longitude, 2));
@@ -51,7 +55,7 @@ namespace Sea_Transportation_Management_System.Model
                 > 15 => $"{Name}\t",
                 < 3 => $"{Name,-20}\t\t",
                 _ => $"{Name,-10}\t\t"
-            }}Fuel stock: {FuelStock}\n{"Location: "}{Location}";
+            }}Fuel stock: {FuelStock}\nWarehouse capacity: {WarehouseCapacity}\nLocation: {Location.Latitude}  {Location.Longitude}";
         }
     }
 }

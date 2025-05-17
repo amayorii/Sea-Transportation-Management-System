@@ -206,7 +206,7 @@
                VerticalAlignment="Center"
                VerticalContentAlignment="Center"
                Margin="75,0,0,0"
-               MouseLeftButtonDown="vesselsBtn_MouseLeftButtonDown"
+               MouseLeftButtonDown="VesselsBtn_MouseLeftButtonDown"
                Cursor="Hand"/>
 
         <Label Content="Ports" Grid.Row="0"
@@ -220,7 +220,7 @@
                VerticalAlignment="Center"
                VerticalContentAlignment="Center"
                Margin="0,0,75,0"
-               MouseLeftButtonDown="portsBtn_MouseLeftButtonDown"
+               MouseLeftButtonDown="PortsBtn_MouseLeftButtonDown"
                Cursor="Hand"/>
         
         <!--vessels list-->
@@ -321,7 +321,8 @@
                         VerticalAlignment="Center"
                         Margin="0,10,0,10">
                 <Button Margin="0,0,10,0" Content="Delete a vessel"/>
-                <Button Margin="10,0,0,0" Content="Register a vessel"/>
+                <Button Margin="10,0,0,0" Content="Register a vessel"
+                        Click="RegisterVessel"/>
             </StackPanel>
         </StackPanel>
 
@@ -345,7 +346,8 @@
                         VerticalAlignment="Center"
                         Margin="0,10,0,10">
                 <Button Margin="0,0,10,0" Content="Delete a port"/>
-                <Button Margin="10,0,0,0" Content="Register a port"/>
+                <Button Margin="10,0,0,0" Content="Register a port"
+                        Click="RegisterPort"/>
             </StackPanel>
         </StackPanel>
 

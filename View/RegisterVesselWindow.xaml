@@ -1,0 +1,102 @@
+﻿<Window x:Class="Sea_Transportation_Management_System.View.RegisterVesselWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Sea_Transportation_Management_System.View"
+        mc:Ignorable="d"
+        Title="RegisterVesselWindow" Height="450" Width="300"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="SingleBorderWindow"
+        ResizeMode="NoResize">
+    <Grid>
+        <!-- TODO IN WHICH PORT ITS REGISTERED -->
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        
+        <Label Content="Name"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Top"
+               FontSize="20"/>
+        <TextBox HorizontalAlignment="Center"
+                 VerticalAlignment="Center"
+                 x:Name="nameBox"
+                 Width="200"
+                 Height="30"
+                 FontSize="15"
+                 Margin="0,25,0,0"
+                 VerticalContentAlignment="Center"/>
+        
+        <Label Content="Home port" Grid.Row="1"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Top"
+               FontSize="20"/>
+        <ComboBox HorizontalAlignment="Center" Grid.Row="1"
+                  VerticalAlignment="Center"
+                  x:Name="homePortBox"
+                  Width="200"
+                  Height="30"
+                  Margin="0,25,0,0"
+                  FontSize="15"
+                  VerticalContentAlignment="Center"/>
+        
+        <Label Content="Type" Grid.Row="2"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Top"
+               FontSize="20"/>
+        <ComboBox HorizontalAlignment="Center" Grid.Row="2"
+                  VerticalAlignment="Center"
+                  x:Name="typeBox"
+                  Width="200"
+                  Height="30"
+                  Margin="0,25,0,0"
+                  FontSize="15"
+                  VerticalContentAlignment="Center">
+            <ComboBoxItem>ContainerShip</ComboBoxItem>
+            <ComboBoxItem>Tanker</ComboBoxItem>
+            <ComboBoxItem>PassengerShip</ComboBoxItem>
+        </ComboBox>
+
+        <Label Content="Capacity" Grid.Row="3"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Top"
+               FontSize="20"/>
+        <TextBox HorizontalAlignment="Center" Grid.Row="3"
+                 VerticalAlignment="Center"
+                 x:Name="capacityBox"
+                 Width="200"
+                 Height="30"
+                 FontSize="15"
+                 Margin="0,25,0,0"
+                 VerticalContentAlignment="Center"/>
+
+        <Label Content="Fuel capacity" Grid.Row="4"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Top"
+               FontSize="20"/>
+        <TextBox HorizontalAlignment="Center" Grid.Row="4"
+                 VerticalAlignment="Center"
+                 x:Name="fuelBox"
+                 Width="200"
+                 Height="30"
+                 FontSize="15"
+                 Margin="0,25,0,0"
+                 VerticalContentAlignment="Center"/>
+        
+        <Button Grid.Row="5"
+                FontSize="25"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Content="Submit"
+                Width="130"
+                Height="40"
+                Cursor="Hand"
+                Click="Submit"/>
+    </Grid>
+</Window>

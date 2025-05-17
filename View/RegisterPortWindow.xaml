@@ -1,0 +1,98 @@
+﻿<Window x:Class="Sea_Transportation_Management_System.View.RegisterPortWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Sea_Transportation_Management_System.View"
+        mc:Ignorable="d"
+        Title="RegisterPortWindow" Height="400" Width="300"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="SingleBorderWindow"
+        ResizeMode="NoResize">
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Label Content="Name"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Top"
+                   FontSize="20"/>
+            <TextBox HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     x:Name="nameBox"
+                     Width="200"
+                     Height="30"
+                     FontSize="15"
+                     Margin="0,25,0,0"
+                     VerticalContentAlignment="Center"/>
+
+            <Label Content="Location" Grid.Row="1"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Top"
+                   FontSize="20"/>
+            <StackPanel Grid.Row="1" Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Margin="0,25,0,0">
+                <Label Content="Latitude:"
+                       FontSize="15"/>
+                <TextBox HorizontalAlignment="Center" Grid.Row="1"
+                         VerticalAlignment="Center"
+                         Width="60"
+                         Height="30"
+                         FontSize="13"
+                         VerticalContentAlignment="Center"/>
+                <Label Content="Longitude:"
+                       FontSize="15"/>
+                <TextBox HorizontalAlignment="Center" Grid.Row="1"
+                         VerticalAlignment="Center"
+                         Width="60"
+                         Height="30"
+                         FontSize="13"
+                         VerticalContentAlignment="Center"/>
+            </StackPanel>
+            
+            <Label Content="Fuel stock" Grid.Row="2"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Top"
+                   FontSize="20"/>
+            <TextBox HorizontalAlignment="Center" Grid.Row="2"
+                     VerticalAlignment="Center"
+                     x:Name="fuelStockBox"
+                     Width="200"
+                     Height="30"
+                     FontSize="15"
+                     Margin="0,25,0,0"
+                     VerticalContentAlignment="Center"/>
+
+            <Label Content="Warehouse capacity" Grid.Row="3"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Top"
+                   FontSize="20"/>
+            <TextBox HorizontalAlignment="Center" Grid.Row="3"
+                     VerticalAlignment="Center"
+                     x:Name="warehouseCapacityBox"
+                     Width="200"
+                     Height="30"
+                     FontSize="15"
+                     Margin="0,25,0,0"
+                     VerticalContentAlignment="Center"/>
+            
+            <Button Grid.Row="4"
+                    FontSize="25"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Content="Submit"
+                    Width="130"
+                    Height="40"
+                    Cursor="Hand"
+                    Click="Submit"/>
+        </Grid>
+    </Grid>
+</Window>
