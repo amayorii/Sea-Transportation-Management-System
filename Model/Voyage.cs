@@ -4,9 +4,10 @@ namespace Sea_Transportation_Management_System.Model
 {
     public class Voyage
     {
-        public Voyage(int id, Vessel? vessel, Port fromPort, Port toPort, DateTime departureDate, DateTime arrivalDate)
+        public Voyage(int id, string name, Vessel vessel, Port fromPort, Port toPort, DateTime departureDate, DateTime arrivalDate)
         {
             Id = id;
+            Name = name;
             VesselId = vessel.Id;
             Vessel = vessel;
             FromPort = fromPort;
@@ -17,8 +18,9 @@ namespace Sea_Transportation_Management_System.Model
         }
 
         public int Id { get; protected set; }
+        public string Name { get; protected set; }
         public int VesselId { get; set; }
-        public Vessel? Vessel { get; set; }
+        public Vessel Vessel { get; set; }
         public Port FromPort { get; set; }
         public Port ToPort { get; set; }
         public double Distance { get; set; }
