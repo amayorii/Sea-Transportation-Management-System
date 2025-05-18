@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sea_Transportation_Management_System.View"
         mc:Ignorable="d"
+        Icon="/Images/fuel.png"
         Title="RefuelWindow" Height="250" Width="350"
         WindowStartupLocation="CenterScreen"
         WindowStyle="SingleBorderWindow"

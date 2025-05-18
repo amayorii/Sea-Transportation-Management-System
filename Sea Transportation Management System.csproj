@@ -11,10 +11,11 @@
 
   <ItemGroup>
     <None Remove=".gitignore" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ViewModel\" />
+    <None Remove="Images\fuel.png" />
+    <None Remove="Images\portIcon.png" />
+    <None Remove="Images\vesselIcon.png" />
+    <None Remove="Images\Voyage.png" />
+    <None Remove="Images\warehouse.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,8 +23,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Images\fuel.png" />
     <Resource Include="Images\port.png" />
+    <Resource Include="Images\portIcon.png" />
     <Resource Include="Images\vessel.png" />
+    <Resource Include="Images\vesselIcon.png" />
+    <Resource Include="Images\Voyage.png" />
+    <Resource Include="Images\warehouse.png" />
   </ItemGroup>
 
 </Project>

@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sea_Transportation_Management_System.View"
         mc:Ignorable="d"
-        Title="VoyagePlanningWindow" Height="475" Width="600"
+        Icon="/Images/Voyage.png"
+        Title="VoyagePlanningWindow" Height="475" Width="620"
         WindowStartupLocation="CenterScreen"
         WindowStyle="SingleBorderWindow"
         ResizeMode="NoResize">

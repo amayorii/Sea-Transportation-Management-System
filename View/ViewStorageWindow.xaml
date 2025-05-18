@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sea_Transportation_Management_System.View"
         mc:Ignorable="d"
+        Icon="/Images/warehouse.png"
         Title="ViewStorageWindow" Height="300" Width="500"
         WindowStartupLocation="CenterScreen"
         WindowStyle="SingleBorderWindow"
