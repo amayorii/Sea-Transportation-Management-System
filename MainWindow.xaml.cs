@@ -88,4 +88,22 @@ public partial class MainWindow : Window
         RegisterPortWindow registerPort = new RegisterPortWindow();
         registerPort.ShowDialog();
     }
+
+    private void RefuelClick(object sender, RoutedEventArgs e)
+    {
+        RefuelWindow refuelWindow = new RefuelWindow();
+        refuelWindow.ShowDialog();
+    }
+
+    private void ViewCargoClick(object sender, RoutedEventArgs e)
+    {
+        ViewStorageWindow viewStorageWindow = new ViewStorageWindow(Vessels[0]);
+        viewStorageWindow.ShowDialog();
+    }
+
+    private void PlanAVoyageClick(object sender, RoutedEventArgs e)
+    {
+        VoyagePlanningWindow voyagePlanningWindow = new VoyagePlanningWindow();
+        voyagePlanningWindow.ShowDialog();
+    }
 }
