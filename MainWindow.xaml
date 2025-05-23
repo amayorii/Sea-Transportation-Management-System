@@ -8,8 +8,7 @@
         mc:Ignorable="d"
         Title="SeaTransportationMS" Height="700" Width="1200"
         WindowStartupLocation="CenterScreen"
-        Background="#2E236C"
-        Loaded="Window_Loaded">
+        Background="#2E236C">
     
     <!--styles-->
     <Window.Resources>
@@ -114,7 +113,8 @@
                     <ControlTemplate TargetType="ListBoxItem">
                         <Border CornerRadius="5" 
                                 Background="{TemplateBinding Background}">
-                            <ContentPresenter Margin="3"/>
+                            <ContentPresenter Margin="3"
+                                              Content="{Binding Info}"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
@@ -198,6 +198,7 @@
         <Label Content="Vessels" Grid.Row="0"
                Grid.Column="0"
                x:Name="vesselsBtn"
+               IsEnabled="False"
                FontSize="30"
                FontWeight="SemiBold"
                FontFamily="Century"
@@ -225,6 +226,8 @@
         
         <!--vessels list-->
         <ListBox x:Name="vesselsList"
+                 ItemsSource="{Binding Vessels}"
+                 SelectionChanged="VesselsList_SelectionChanged"
                  Grid.Row="1"
                  Margin="10,0,10,10"
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled">
@@ -237,6 +240,8 @@
 
         <!--ports list-->
         <ListBox x:Name="portsList"
+                 ItemsSource="{Binding Ports}"
+                 SelectionChanged="PortsList_SelectionChanged"
                  Visibility="Hidden"
                  Grid.Row="1"
                  Margin="10,0,10,10"
@@ -290,7 +295,7 @@
                             <StackPanel Orientation="Vertical">
                                 <Image Style="{StaticResource mapItemImage}"
                                        Source="/Images/port.png"
-                                       RenderOptions.BitmapScalingMode="Fant"/>
+                                       RenderOptions.BitmapScalingMode="HighQuality"/>
                                 <TextBlock Style="{StaticResource mapItemTB}"/>
                             </StackPanel>
                         </DataTemplate>
@@ -313,6 +318,8 @@
                         VerticalAlignment="Center"
                         Margin="0,10,0,10">
                 <Button Margin="0,0,10,0" Content="Refuel"
+                        IsEnabled="False"
+                        x:Name="vesselRefuel"
                         Click="RefuelClick"/>
                 <Button Margin="10,0,0,0" Content="View cargo"
                         Click="ViewCargoClick"/>
@@ -339,7 +346,10 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         Margin="0,10,0,10">
-                <Button Margin="0,0,10,0" Content="Request fuel"/>
+                <Button Margin="0,0,10,0" Content="Request fuel"
+                        IsEnabled="False"
+                        x:Name="portRefuel"
+                        Click="RefuelClick"/>
                 <Button Margin="10,0,0,0" Content="View warehouse"/>
             </StackPanel>
 

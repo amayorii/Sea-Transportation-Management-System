@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.ComponentModel;
+using System.Windows;
 using MapControl;
 using Sea_Transportation_Management_System.Model.Interfaces;
 
@@ -10,12 +11,27 @@ public enum VesselStatus
     WaitingInPort,
     OnVoyage
 }
-public abstract class Vessel : IRefuelable
+public abstract class Vessel : IRefuelable, INotifyPropertyChanged
 {
     private int _id;
+    private string _name;
+    private Location _location;
+    private float _fuel;
+    private VesselStatus _status;
     private double _capacity;
     private float _fuelCapacity;
-    public Location Location { get; set; }
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    public Location Location
+    {
+        get { return _location; }
+        set
+        {
+            _location = value;
+            OnPropertyChanged(nameof(Location));
+        }
+    }
     public Vessel(int id, string name, double cargoCapacity, float fuelCapacity)
     {
         Name = name;
@@ -23,8 +39,24 @@ public abstract class Vessel : IRefuelable
         Capacity = cargoCapacity;
         FuelCapacity = fuelCapacity;
     }
-    public string Name { get; protected set; }
-    public VesselStatus Status { get; set; }
+    public string Name
+    {
+        get { return _name; }
+        protected set
+        {
+            _name = value;
+            OnPropertyChanged(nameof(Name));
+        }
+    }
+    public VesselStatus Status
+    {
+        get { return _status; }
+        set
+        {
+            _status = value;
+            OnPropertyChanged(nameof(Status));
+        }
+    }
 
     public int Id
     {
@@ -32,6 +64,7 @@ public abstract class Vessel : IRefuelable
         protected set
         {
             _id = value;
+            OnPropertyChanged(nameof(Id));
         }
     }
     public double Capacity
@@ -45,9 +78,18 @@ public abstract class Vessel : IRefuelable
                 return;
             }
             _capacity = value;
+            OnPropertyChanged(nameof(Capacity));
         }
     }
-    public float Fuel { get; protected set; }
+    public float Fuel
+    {
+        get { return _fuel; }
+        protected set
+        {
+            _fuel = value;
+            OnPropertyChanged(nameof(Fuel));
+        }
+    }
     public float FuelCapacity
     {
         get { return _fuelCapacity; }
@@ -59,9 +101,15 @@ public abstract class Vessel : IRefuelable
                 return;
             }
             _fuelCapacity = value;
+            OnPropertyChanged(nameof(FuelCapacity));
         }
     }
-
+    public string Info => ToString();
+    protected void OnPropertyChanged(string propName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Info)));
+    }
     public abstract double CalculateFuelConsumption(double distance); // в різних типах суден різні витрати в залежності від типу та вантажу
 
     public void Refuel(float amount)

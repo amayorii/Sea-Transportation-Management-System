@@ -39,7 +39,11 @@
         <Button Content="Submit" Grid.Row="2"
                 Width="135"
                 Height="60"
+                Click="SubmitClick"
+                Command="{Binding RefuelCommand}"
+                CommandParameter="{Binding ElementName=refuelBox,Path=Text}"
                 HorizontalAlignment="Right"
-                Margin="0,0,10,0"/>
+                Margin="0,0,10,0"
+                Cursor="Hand"/>
     </Grid>
 </Window>
