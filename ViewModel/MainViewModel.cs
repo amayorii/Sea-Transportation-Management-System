@@ -17,11 +17,11 @@ namespace Sea_Transportation_Management_System.ViewModel
         }
         private void Loaded()
         {
-            ContainerShip c1 = new ContainerShip(1, "Sea Queen", 250, 320);
+            ContainerShip c1 = new ContainerShip(1, "Sea Queen", 320, 600, 30);
             c1.Location = new Location(46.4825, 30.7233);
-            Tanker t1 = new Tanker(2, "Red Serpent", 1500, 600);
+            Tanker t1 = new Tanker(2, "Red Serpent", 600, 1500, 30);
             t1.Location = new Location(32.4144, 5.6555);
-            PassengerShip p1 = new PassengerShip(3, "Human being", 500, 1350);
+            PassengerShip p1 = new PassengerShip(3, "Human being", 1350);
             p1.Location = new Location(31.4144, 8.6555);
             c1.Refuel(500);
 
@@ -30,7 +30,7 @@ namespace Sea_Transportation_Management_System.ViewModel
             Vessels.Add(t1);
             Vessels.Add(p1);
 
-            Port port = new Port(1, "Black Pearl", new Location(44.6500, 33.5200), 700, 1500);
+            Port port = new Port(1, "Black Pearl", new Location(44.6500, 33.5200), 700, 1500, 50);
             Ports.Add(port);
         }
     }

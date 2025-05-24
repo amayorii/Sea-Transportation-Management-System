@@ -18,7 +18,6 @@ public abstract class Vessel : IRefuelable, INotifyPropertyChanged
     private Location _location;
     private float _fuel;
     private VesselStatus _status;
-    private double _capacity;
     private float _fuelCapacity;
 
     public event PropertyChangedEventHandler? PropertyChanged;
@@ -32,11 +31,10 @@ public abstract class Vessel : IRefuelable, INotifyPropertyChanged
             OnPropertyChanged(nameof(Location));
         }
     }
-    public Vessel(int id, string name, double cargoCapacity, float fuelCapacity)
+    public Vessel(int id, string name, float fuelCapacity)
     {
         Name = name;
         Id = id;
-        Capacity = cargoCapacity;
         FuelCapacity = fuelCapacity;
     }
     public string Name
@@ -67,20 +65,7 @@ public abstract class Vessel : IRefuelable, INotifyPropertyChanged
             OnPropertyChanged(nameof(Id));
         }
     }
-    public double Capacity
-    {
-        get { return _capacity; }
-        protected set
-        {
-            if (value <= 0)
-            {
-                MessageBox.Show("Capacity must be greater than zero!");
-                return;
-            }
-            _capacity = value;
-            OnPropertyChanged(nameof(Capacity));
-        }
-    }
+
     public float Fuel
     {
         get { return _fuel; }
@@ -129,6 +114,6 @@ public abstract class Vessel : IRefuelable, INotifyPropertyChanged
             > 15 => $"{Name}\t",
             < 3 => $"{Name,-20}\t\t",
             _ => $"{Name,-10}\t\t"
-        }}{"Fuel: ",-7}{Fuel}/{FuelCapacity}\n{"Type: ",-10}{GetType().Name,-10}\t\t{"Capacity: ",-11}{Capacity}\n{"Status: ",-10}{Status}";
+        }}{"Fuel: ",-7}{Fuel}/{FuelCapacity}\n{"Type: ",-10}{GetType().Name,-10}\n{"Status: ",-10}{Status}";
     }
 }

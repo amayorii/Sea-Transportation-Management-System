@@ -5,46 +5,23 @@ using Sea_Transportation_Management_System.Model.Transportable;
 
 namespace Sea_Transportation_Management_System.Model.Vessels
 {
-    class ContainerShip : Vessel, ICargo
+    public class ContainerShip : Vessel, ICargo
     {
-        private readonly List<Container> _containerList = new List<Container>();
-        private double _containersWeight;
-        public List<Container> ContainerList
-        {
-            get { return _containerList; }
-        }
-        public double ContainersWeight
-        {
-            get { return _containersWeight; }
-            set
-            {
-                if (value < 0)
-                {
-                    MessageBox.Show("Weight cannot be negative!");
-                    return;
-                }
-                _containersWeight = value;
-            }
-        }
-        public ContainerShip(int id, string? name, double cargoCapacity, float fuelCapacity) : base(id, name, cargoCapacity, fuelCapacity)
-        {
+        public Storage Storage { get; }
 
+        public ContainerShip(int id, string? name, float fuelCapacity, double maxWeight, int maxItems) : base(id, name, fuelCapacity)
+        {
+            Storage = new Storage(maxWeight, maxItems);
         }
 
         public override double CalculateFuelConsumption(double distance)
         {
-            if (_containersWeight == default)
-            {
-                MessageBox.Show("Input a containers weight!");
-                return 0;
-            }
-            else if (ContainersWeight == 0)
+            if (Storage.CurrentWeight == 0)
                 return distance * 0.9;
 
-            return distance * (0.9 + ContainersWeight / Capacity / 4);
+            return distance * (0.9 + Storage.CurrentWeight / Storage.MaxWeightCapacity / 4);
         }
 
-        // зробить так, щоб були окремі об'єкти грузів, і щоб можна було подивитись що в кожному знаходиться
         public void LoadCargo(ITransportable cont)
         {
             if (cont is not Container container)
@@ -53,37 +30,39 @@ namespace Sea_Transportation_Management_System.Model.Vessels
                 return;
             }
 
-            if (ContainersWeight + container.Weight > Capacity)
+            if (Storage.CurrentWeight + container.Weight > Storage.MaxWeightCapacity)
             {
                 MessageBox.Show($"Weight of container \"{container.ContainerSign}\" exceeds the capacity limit");
                 return;
             }
-
-            ContainersWeight += container.Weight;
-            ContainerList.Add(container);
+            else if (Storage.CurrentItemCount == Storage.MaxItemCount)
+            {
+                MessageBox.Show($"Container \"{container.ContainerSign}\" is full");
+                return;
+            }
+            Storage.AddItem(container);
         }
 
         public void UnloadCargo(ITransportable cont)
         {
-            throw new NotImplementedException();
+            Storage.RemoveItem(cont);
         }
         public void ViewCargo()
         {
-            if (ContainerList.Count == 0)
+            if (Storage.CurrentItemCount == 0)
                 MessageBox.Show("The ship is empty.");
 
             StringBuilder sb = new StringBuilder();
             sb.AppendLine($"Cargo of \"{Name}\":");
 
-            foreach (var container in ContainerList)
+            foreach (var container in Storage.Items)
             {
                 sb.AppendLine(container.ToString());
             }
 
-            sb.AppendLine($"Total weight: {ContainersWeight} / {Capacity}");
+            sb.AppendLine($"Total weight: {Storage.CurrentWeight} / {Storage.MaxWeightCapacity}");
 
             MessageBox.Show(sb.ToString(), "Cargo", MessageBoxButton.OK, MessageBoxImage.Information);
-
         }
     }
 }

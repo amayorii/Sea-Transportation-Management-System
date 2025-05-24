@@ -18,7 +18,7 @@ namespace Sea_Transportation_Management_System.Model.Vessels
                 _passengers = value;
             }
         }
-        public PassengerShip(int id, string? name, double cargoCapacity, float fuelCapacity) : base(id, name, cargoCapacity, fuelCapacity)
+        public PassengerShip(int id, string? name, float fuelCapacity) : base(id, name, fuelCapacity)
         {
 
         }

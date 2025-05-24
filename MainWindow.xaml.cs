@@ -89,10 +89,14 @@ public partial class MainWindow : Window
     private void VesselsList_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
     {
         vesselRefuel.IsEnabled = vesselsList.SelectedItem != null;
+        deleteVesselBtn.IsEnabled = vesselsList.SelectedItem != null;
+        viewCargoBtn.IsEnabled = vesselsList.SelectedItem != null;
     }
 
     private void PortsList_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
     {
         portRefuel.IsEnabled = portsList.SelectedItem != null;
+        deletePortBtn.IsEnabled = portsList.SelectedItem != null;
+        viewWarehouseBtn.IsEnabled = portsList.SelectedItem != null;
     }
 }

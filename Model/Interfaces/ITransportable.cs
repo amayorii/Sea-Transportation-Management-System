@@ -2,5 +2,6 @@
 {
     public interface ITransportable
     {
+        public double Weight { get; }
     }
 }

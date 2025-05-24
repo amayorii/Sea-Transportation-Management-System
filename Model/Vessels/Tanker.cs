@@ -7,43 +7,18 @@ namespace Sea_Transportation_Management_System.Model.Vessels
 {
     class Tanker : Vessel, ICargo
     {
-        private readonly List<Barrel> _barrelList = new List<Barrel>();
-        private double _fluidWeight;
-
-        public List<Barrel> BarrelList
+        public Storage Storage { get; }
+        public Tanker(int id, string? name, float fuelCapacity, double maxWeight, int maxItems) : base(id, name, fuelCapacity)
         {
-            get { return _barrelList; }
-        }
-
-        public double FluidWeight
-        {
-            get { return _fluidWeight; }
-            set
-            {
-                if (value < 0)
-                {
-                    MessageBox.Show("Weight cannot be negative!");
-                    return;
-                }
-                _fluidWeight = value;
-            }
-        }
-        public Tanker(int id, string? name, double cargoCapacity, float fuelCapacity) : base(id, name, cargoCapacity, fuelCapacity)
-        {
-
+            Storage = new Storage(maxWeight, maxItems);
         }
 
         public override double CalculateFuelConsumption(double distance)
         {
-            if (_fluidWeight == default)
-            {
-                MessageBox.Show("Input a fluid weight!");
-                return 0;
-            }
-            else if (FluidWeight == 0)
+            if (Storage.CurrentWeight == 0)
                 return distance * 1.1;
 
-            return distance * (1.1 + FluidWeight / Capacity / 4);
+            return distance * (1.1 + Storage.CurrentWeight / Storage.MaxWeightCapacity / 4);
         }
 
         public void LoadCargo(ITransportable transportable)
@@ -54,14 +29,12 @@ namespace Sea_Transportation_Management_System.Model.Vessels
                 return;
             }
 
-            if (FluidWeight + barrel.Weight > Capacity)
+            if (Storage.CurrentWeight + barrel.Weight > Storage.MaxWeightCapacity)
             {
                 MessageBox.Show($"Weight of barrel \"{barrel.Id}\" exceeds the capacity limit");
                 return;
             }
-
-            FluidWeight += barrel.Weight;
-            BarrelList.Add(barrel);
+            Storage.AddItem(barrel);
         }
 
         public void UnloadCargo(ITransportable transportable)
@@ -71,18 +44,18 @@ namespace Sea_Transportation_Management_System.Model.Vessels
 
         public void ViewCargo()
         {
-            if (BarrelList.Count == 0)
+            if (Storage.CurrentItemCount == 0)
                 MessageBox.Show("The ship is empty.");
 
             StringBuilder sb = new StringBuilder();
             sb.AppendLine($"Cargo of \"{Name}\":");
 
-            foreach (var barrel in BarrelList)
+            foreach (var barrel in Storage.Items)
             {
                 sb.AppendLine(barrel.ToString());
             }
 
-            sb.AppendLine($"Total weight: {FluidWeight} / {Capacity}");
+            sb.AppendLine($"Total weight: {Storage.CurrentWeight} / {Storage.MaxWeightCapacity}");
 
             MessageBox.Show(sb.ToString(), "Cargo", MessageBoxButton.OK, MessageBoxImage.Information);
         }

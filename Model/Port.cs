@@ -12,16 +12,14 @@ namespace Sea_Transportation_Management_System.Model
         private string _name;
         private Location _location;
         private float _fuelStock;
-        private float _currentCapacity;
-        private float _warehouseCapacity;
-        public Port(int id, string? name, Location location, float fuelStock, float warehouseCapacity)
+
+        public Port(int id, string? name, Location location, float fuelStock, double warehouseCapacity, int maxItems)
         {
             Id = id;
             Name = name;
             Location = location;
             FuelStock = fuelStock;
-            CurrentCapacity = 0;
-            WarehouseCapacity = warehouseCapacity;
+            Storage = new Storage(warehouseCapacity, maxItems);
         }
 
         public int Id
@@ -60,25 +58,7 @@ namespace Sea_Transportation_Management_System.Model
                 OnPropertyChanged(nameof(FuelStock));
             }
         }
-        public float CurrentCapacity
-        {
-            get { return _currentCapacity; }
-            set
-            {
-                _currentCapacity = value;
-                OnPropertyChanged(nameof(CurrentCapacity));
-            }
-        }
-        public float WarehouseCapacity
-        {
-            get { return _warehouseCapacity; }
-            set
-            {
-                _warehouseCapacity = value;
-                OnPropertyChanged(nameof(WarehouseCapacity));
-            }
-        }
-
+        public Storage Storage { get; }
 
         public event PropertyChangedEventHandler? PropertyChanged;
         public string Info => ToString();
@@ -120,7 +100,7 @@ namespace Sea_Transportation_Management_System.Model
                 > 15 => $"{Name}\t",
                 < 3 => $"{Name,-20}\t\t",
                 _ => $"{Name,-10}\t\t"
-            }}Fuel stock: {FuelStock}\nWarehouse capacity: {WarehouseCapacity}\nLocation: {Location.Latitude}  {Location.Longitude}";
+            }}Fuel stock: {FuelStock}\nWarehouse capacity: {Storage.CurrentWeight}\nLocation: {Location.Latitude}  {Location.Longitude}";
         }
     }
 }
