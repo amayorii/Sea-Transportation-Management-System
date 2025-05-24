@@ -15,6 +15,6 @@ namespace Sea_Transportation_Management_System.Model.Transportable
 
         public double Weight => Liquid.Weight;
 
-        public override string ToString() => $"Barrel {Id}: {Liquid.Name}, Volume: {Liquid.Volume}L, Weight: {Weight}kg";
+        public override string ToString() => $"Barrel {Id}: {Liquid.Name}, Volume: {Liquid.Volume} L, Weight: {Weight} kg";
     }
 }

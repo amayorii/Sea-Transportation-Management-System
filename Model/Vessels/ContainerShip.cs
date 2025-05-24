@@ -9,7 +9,7 @@ namespace Sea_Transportation_Management_System.Model.Vessels
     {
         public Storage Storage { get; }
 
-        public ContainerShip(int id, string? name, float fuelCapacity, double maxWeight, int maxItems) : base(id, name, fuelCapacity)
+        public ContainerShip(int id, string? name, Port currentPort, float fuelCapacity, double maxWeight, int maxItems) : base(id, name, currentPort, fuelCapacity)
         {
             Storage = new Storage(maxWeight, maxItems);
         }

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Windows;
 using MapControl;
 using Sea_Transportation_Management_System.Model.Interfaces;
@@ -19,23 +20,36 @@ public abstract class Vessel : IRefuelable, INotifyPropertyChanged
     private float _fuel;
     private VesselStatus _status;
     private float _fuelCapacity;
+    private Port? _currentPort;
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
+    public Port? CurrentPort
+    {
+        get { return _currentPort; }
+        protected set
+        {
+            _currentPort = value;
+            OnPropertyChanged(nameof(CurrentPort));
+        }
+    }
     public Location Location
     {
         get { return _location; }
-        set
+        protected set
         {
             _location = value;
             OnPropertyChanged(nameof(Location));
         }
     }
-    public Vessel(int id, string name, float fuelCapacity)
+    public Vessel(int id, string name, Port currentPort, float fuelCapacity)
     {
+        Random rnd = new Random();
         Name = name;
         Id = id;
         FuelCapacity = fuelCapacity;
+        CurrentPort = currentPort;
+        Location = new Location(CurrentPort.Location.Latitude + ((rnd.NextDouble() - rnd.NextDouble()) * 0.001), CurrentPort.Location.Longitude + ((rnd.NextDouble() - rnd.NextDouble()) * 0.001));
     }
     public string Name
     {
@@ -96,7 +110,23 @@ public abstract class Vessel : IRefuelable, INotifyPropertyChanged
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Info)));
     }
     public abstract double CalculateFuelConsumption(double distance); // в різних типах суден різні витрати в залежності від типу та вантажу
+    public void UpdateStatus(ObservableCollection<Port> ports, double detectionRadiusNauticalMiles = 1.2)
+    {
+        foreach (var port in ports)
+        {
+            if (GeoLocator.IsWithinRadius(Location, port.Location, detectionRadiusNauticalMiles))
+            {
+                CurrentPort = port;
+                port.VesselsInPort.Add(this);
+                Status = VesselStatus.WaitingInPort;
+                return;
+            }
+            port.VesselsInPort.Remove(this);
+        }
 
+        CurrentPort = null!;
+        Status = VesselStatus.OnVoyage;
+    }
     public void Refuel(float amount)
     {
         if (amount < 0)

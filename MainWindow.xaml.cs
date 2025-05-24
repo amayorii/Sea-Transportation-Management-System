@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Media;
 using Sea_Transportation_Management_System.Model;
+using Sea_Transportation_Management_System.Model.Interfaces;
 using Sea_Transportation_Management_System.Model.Vessels;
 using Sea_Transportation_Management_System.View;
 
@@ -76,8 +77,14 @@ public partial class MainWindow : Window
 
     private void ViewCargoClick(object sender, RoutedEventArgs e)
     {
-        ViewStorageWindow viewStorageWindow = new ViewStorageWindow(new object());
-        viewStorageWindow.ShowDialog();
+        ViewStorageWindow viewStorageWindow = null;
+
+        if (vesselRefuel.IsEnabled && !vesselsBtn.IsEnabled && vesselsList.SelectedItem is ICargo storagable)
+            viewStorageWindow = new ViewStorageWindow(storagable);
+        else if (portRefuel.IsEnabled && !portsBtn.IsEnabled)
+            viewStorageWindow = new ViewStorageWindow(portsList.SelectedItem as Port);
+
+        viewStorageWindow?.ShowDialog();
     }
 
     private void PlanAVoyageClick(object sender, RoutedEventArgs e)
@@ -90,7 +97,7 @@ public partial class MainWindow : Window
     {
         vesselRefuel.IsEnabled = vesselsList.SelectedItem != null;
         deleteVesselBtn.IsEnabled = vesselsList.SelectedItem != null;
-        viewCargoBtn.IsEnabled = vesselsList.SelectedItem != null;
+        viewCargoBtn.IsEnabled = vesselsList.SelectedItem != null && vesselsList.SelectedItem is ICargo;
     }
 
     private void PortsList_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)

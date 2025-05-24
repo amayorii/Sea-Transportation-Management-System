@@ -1,6 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using MapControl;
 using Sea_Transportation_Management_System.Model;
+using Sea_Transportation_Management_System.Model.Transportable;
+using Sea_Transportation_Management_System.Model.Transportable.Fluids;
 using Sea_Transportation_Management_System.Model.Vessels;
 
 namespace Sea_Transportation_Management_System.ViewModel
@@ -14,23 +16,33 @@ namespace Sea_Transportation_Management_System.ViewModel
             Vessels = vessels;
             Ports = ports;
             Loaded();
+            foreach (var vessel in Vessels) vessel.UpdateStatus(Ports);
         }
         private void Loaded()
         {
-            ContainerShip c1 = new ContainerShip(1, "Sea Queen", 320, 600, 30);
-            c1.Location = new Location(46.4825, 30.7233);
-            Tanker t1 = new Tanker(2, "Red Serpent", 600, 1500, 30);
-            t1.Location = new Location(32.4144, 5.6555);
-            PassengerShip p1 = new PassengerShip(3, "Human being", 1350);
-            p1.Location = new Location(31.4144, 8.6555);
-            c1.Refuel(500);
+            Port port = new Port(1, "Black Pearl", new Location(44.6500, 33.5200), 700, 1500, 50);
+            ContainerShip c1 = new ContainerShip(1, "Sea Queen", port, 320, 600, 30);
+            c1.LoadCargo(new Container(1, "Grechka", 321));
+            c1.LoadCargo(new Container(2, "Sand", 230) { Contents = { "nigga", "ada", "ps", "53232", "40 pachok grechki" } });
+            Tanker t1 = new Tanker(2, "Red Serpent", port, 600, 1500, 30);
+            t1.LoadCargo(new Barrel(1, new Oil(40)));
+            t1.LoadCargo(new Barrel(2, new Water(10)));
+            t1.LoadCargo(new Barrel(3, new Fuel(5.1)));
 
-            p1.Refuel(1350);
+            PassengerShip p1 = new PassengerShip(3, "Human being", port, 1350);
+            c1.Refuel(100);
+
+            p1.Refuel(120);
+
             Vessels.Add(c1);
             Vessels.Add(t1);
             Vessels.Add(p1);
 
-            Port port = new Port(1, "Black Pearl", new Location(44.6500, 33.5200), 700, 1500, 50);
+            port.Storage.AddItem(new Container(1, "Grechka", 321));
+            port.Storage.AddItem(new Barrel(1, new Oil(40)));
+            port.Storage.AddItem(new Barrel(2, new Water(10)));
+            port.Storage.AddItem(new Barrel(3, new Fuel(5.1)));
+
             Ports.Add(port);
         }
     }

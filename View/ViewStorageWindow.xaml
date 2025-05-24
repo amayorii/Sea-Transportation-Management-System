@@ -6,61 +6,63 @@
         xmlns:local="clr-namespace:Sea_Transportation_Management_System.View"
         mc:Ignorable="d"
         Icon="/Images/warehouse.png"
-        Title="ViewStorageWindow" Height="300" Width="500"
+        Title="ViewStorageWindow" Height="450" Width="700"
         WindowStartupLocation="CenterScreen"
         WindowStyle="SingleBorderWindow"
         ResizeMode="NoResize">
     <Grid>
-        <Grid x:Name="vesselStorage"
-              Visibility="Visible">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition Height="40"/>
-            </Grid.RowDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
 
-            <ListBox x:Name="vesselStorageList"
-                     Margin="5"
-                     SelectionChanged="VesselsStorage_SelectionChanged">
+        <ListBox x:Name="storage"
+                 Margin="5"
+                 ItemsSource="{Binding StorageItems}"
+                 SelectionChanged="Storage_SelectionChanged"
+                 FontSize="20"
+                 FontFamily="Malgun Gothic"/>
 
-            </ListBox>
+        <StackPanel Grid.Row="1"
+                    x:Name="vesselStackpanel"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Margin="0,0,10,0">
 
-            <StackPanel Grid.Row="1"
-                        Orientation="Horizontal"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        Margin="0,0,10,0">
+            <Button Content="Unload to warehouse"
+                    x:Name="unloadBtn"
+                    Margin="0,0,10,0"
+                    Height="30" Width="130"
+                    IsEnabled="False"/>
 
-                <Button Content="Unload to warehouse"
-                        x:Name="unloadBtn"
-                        Margin="0,0,10,0"
-                        Height="30" Width="130"
-                        IsEnabled="False"/>
-
-                <Button Content="Load from warehouse"
-                        Margin="10,0,0,0"
-                        Height="30" Width="130"/>
-            </StackPanel>
-        </Grid>
+            <Button Content="Load from warehouse"
+                    Margin="10,0,0,0"
+                    Height="30" Width="130"/>
+        </StackPanel>
         
-        <Grid x:Name="portStorage"
-              Visibility="Hidden">
-            <ListBox x:Name="portStorageList"
-                     Margin="5"
-                     SelectionChanged="PortStorage_SelectionChanged">
+        <StackPanel x:Name="portStackpanel"
+                    Grid.Row="1"
+                    Visibility="Hidden"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Margin="0,0,10,0">
 
-            </ListBox>
+            <Button Content="Load the vessel"
+                    x:Name="loadBtn"
+                    Height="30" Width="90"
+                    IsEnabled="False"/>
+        </StackPanel>
 
-            <StackPanel Grid.Row="1"
-                        Orientation="Horizontal"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        Margin="0,0,10,0">
-
-                <Button Content="Load the vessel"
-                        x:Name="loadBtn"
-                        Height="30" Width="90"
-                        IsEnabled="False"/>
-            </StackPanel>
-        </Grid>
+        <StackPanel Grid.Row="1"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
+            <Label Content="{Binding WeightState}"
+                   Margin="10,0,10,0"/>
+            <Label Content="{Binding ItemCountState}"
+                   Margin="10,0,10,0"/>
+        </StackPanel>
     </Grid>
 </Window>

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Windows;
 using MapControl;
 using Sea_Transportation_Management_System.Model.Interfaces;
@@ -6,7 +7,7 @@ using Sea_Transportation_Management_System.Model.Vessels;
 
 namespace Sea_Transportation_Management_System.Model
 {
-    public class Port : IRefuelable, INotifyPropertyChanged
+    public class Port : IRefuelable, ICargo, INotifyPropertyChanged
     {
         private int _id;
         private string _name;
@@ -20,8 +21,9 @@ namespace Sea_Transportation_Management_System.Model
             Location = location;
             FuelStock = fuelStock;
             Storage = new Storage(warehouseCapacity, maxItems);
+            VesselsInPort = [];
         }
-
+        public ObservableCollection<Vessel> VesselsInPort { get; }
         public int Id
         {
             get { return _id; }
@@ -100,7 +102,22 @@ namespace Sea_Transportation_Management_System.Model
                 > 15 => $"{Name}\t",
                 < 3 => $"{Name,-20}\t\t",
                 _ => $"{Name,-10}\t\t"
-            }}Fuel stock: {FuelStock}\nWarehouse capacity: {Storage.CurrentWeight}\nLocation: {Location.Latitude}  {Location.Longitude}";
+            }}Fuel stock: {FuelStock}\nWarehouse capacity: {Storage.CurrentWeight}\nVessels in port: {VesselsInPort.Count}\nLocation: {Location.Latitude}  {Location.Longitude}";
+        }
+
+        public void LoadCargo(ITransportable transportable)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UnloadCargo(ITransportable transportable)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ViewCargo()
+        {
+            throw new NotImplementedException();
         }
     }
 }
