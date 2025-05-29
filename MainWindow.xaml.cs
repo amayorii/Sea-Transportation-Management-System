@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using Sea_Transportation_Management_System.Model;
+using Sea_Transportation_Management_System.Model.Interfaces;
 using Sea_Transportation_Management_System.Model.Vessels;
 using Sea_Transportation_Management_System.View;
 
@@ -65,7 +66,11 @@ public partial class MainWindow : Window
 
     private void ViewCargoClick(object sender, RoutedEventArgs e)
     {
-        ViewStorageWindow viewStorageWindow = new ViewStorageWindow(new object());
+        ViewStorageWindow viewStorageWindow = null!;
+        if (viewCargoBtn.IsEnabled && !vesselsBtn.IsEnabled)
+            viewStorageWindow = new ViewStorageWindow(vesselsList.SelectedItem as ICargo);
+        else if (viewWarehouseBtn.IsEnabled && !portsBtn.IsEnabled)
+            viewStorageWindow = new ViewStorageWindow(portsList.SelectedItem as Port);
         viewStorageWindow.ShowDialog();
     }
 
@@ -79,7 +84,7 @@ public partial class MainWindow : Window
     {
         vesselRefuel.IsEnabled = vesselsList.SelectedItem != null;
         deleteVesselBtn.IsEnabled = vesselsList.SelectedItem != null;
-        viewCargoBtn.IsEnabled = vesselsList.SelectedItem != null;
+        viewCargoBtn.IsEnabled = vesselsList.SelectedItem != null && vesselsList.SelectedItem is ICargo;
     }
 
     private void PortsList_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)

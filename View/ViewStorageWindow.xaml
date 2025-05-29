@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Sea_Transportation_Management_System.View"
+        xmlns:local="clr-namespace:Sea_Transportation_Management_System.View" xmlns:vm="clr-namespace:Sea_Transportation_Management_System.ViewModel"
         mc:Ignorable="d"
         Icon="/Images/warehouse.png"
         Title="ViewStorageWindow" Height="300" Width="500"
@@ -11,56 +11,6 @@
         WindowStyle="SingleBorderWindow"
         ResizeMode="NoResize">
     <Grid>
-        <Grid x:Name="vesselStorage"
-              Visibility="Visible">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition Height="40"/>
-            </Grid.RowDefinitions>
-
-            <ListBox x:Name="vesselStorageList"
-                     Margin="5"
-                     SelectionChanged="VesselsStorage_SelectionChanged">
-
-            </ListBox>
-
-            <StackPanel Grid.Row="1"
-                        Orientation="Horizontal"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        Margin="0,0,10,0">
-
-                <Button Content="Unload to warehouse"
-                        x:Name="unloadBtn"
-                        Margin="0,0,10,0"
-                        Height="30" Width="130"
-                        IsEnabled="False"/>
-
-                <Button Content="Load from warehouse"
-                        Margin="10,0,0,0"
-                        Height="30" Width="130"/>
-            </StackPanel>
-        </Grid>
-        
-        <Grid x:Name="portStorage"
-              Visibility="Hidden">
-            <ListBox x:Name="portStorageList"
-                     Margin="5"
-                     SelectionChanged="PortStorage_SelectionChanged">
-
-            </ListBox>
-
-            <StackPanel Grid.Row="1"
-                        Orientation="Horizontal"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        Margin="0,0,10,0">
-
-                <Button Content="Load the vessel"
-                        x:Name="loadBtn"
-                        Height="30" Width="90"
-                        IsEnabled="False"/>
-            </StackPanel>
-        </Grid>
+        <ContentControl Content="{Binding CurrentView}" />
     </Grid>
 </Window>

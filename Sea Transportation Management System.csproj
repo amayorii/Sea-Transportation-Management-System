@@ -7,8 +7,9 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <AssemblyName>Sea_Transportation_Management_System</AssemblyName>
   </PropertyGroup>
-
+	
   <ItemGroup>
     <None Remove=".gitignore" />
     <None Remove="Images\fuel.png" />
