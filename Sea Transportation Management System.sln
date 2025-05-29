@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.13.35828.75
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sea Transportation Management System", "Sea Transportation Management System.csproj", "{0D2EB799-0C0D-4901-A786-964F5B42F300}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sea Transportation Management System", "Sea Transportation Management System.csproj", "{9B623650-75C6-04CF-4CFE-598A09A4CCCA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0D2EB799-0C0D-4901-A786-964F5B42F300}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0D2EB799-0C0D-4901-A786-964F5B42F300}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0D2EB799-0C0D-4901-A786-964F5B42F300}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0D2EB799-0C0D-4901-A786-964F5B42F300}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B623650-75C6-04CF-4CFE-598A09A4CCCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B623650-75C6-04CF-4CFE-598A09A4CCCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B623650-75C6-04CF-4CFE-598A09A4CCCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B623650-75C6-04CF-4CFE-598A09A4CCCA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

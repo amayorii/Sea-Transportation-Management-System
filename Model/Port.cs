@@ -1,12 +1,11 @@
 ﻿using System.ComponentModel;
 using System.Windows;
-using MapControl;
 using Sea_Transportation_Management_System.Model.Interfaces;
 using Sea_Transportation_Management_System.Model.Vessels;
 
 namespace Sea_Transportation_Management_System.Model
 {
-    public class Port : IRefuelable, INotifyPropertyChanged
+    public class Port : IRefuelable, ICargo, INotifyPropertyChanged
     {
         private int _id;
         private string _name;
@@ -101,6 +100,21 @@ namespace Sea_Transportation_Management_System.Model
                 < 3 => $"{Name,-20}\t\t",
                 _ => $"{Name,-10}\t\t"
             }}Fuel stock: {FuelStock}\nWarehouse capacity: {Storage.CurrentWeight}\nLocation: {Location.Latitude}  {Location.Longitude}";
+        }
+
+        public void LoadCargo(ITransportable transportable)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UnloadCargo(ITransportable transportable)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ViewCargo()
+        {
+            throw new NotImplementedException();
         }
     }
 }

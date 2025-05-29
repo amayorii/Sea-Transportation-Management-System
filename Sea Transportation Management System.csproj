@@ -19,10 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="XAML.MapControl.WPF" Version="13.4.0" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Resource Include="Images\fuel.png" />
     <Resource Include="Images\port.png" />
     <Resource Include="Images\portIcon.png" />
