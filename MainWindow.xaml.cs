@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using System.Windows.Media;
 using Sea_Transportation_Management_System.Model;
 using Sea_Transportation_Management_System.Model.Vessels;
 using Sea_Transportation_Management_System.View;
@@ -14,16 +13,6 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-        map.SizeChanged += (s, e) =>
-        {
-            var clip = new RectangleGeometry
-            {
-                Rect = new Rect(0, 0, map.ActualWidth, map.ActualHeight),
-                RadiusX = 8.5,
-                RadiusY = 8.5
-            };
-            map.Clip = clip;
-        };
     }
 
     private void VesselsBtn_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)

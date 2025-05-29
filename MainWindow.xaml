@@ -165,32 +165,6 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-
-        <Style TargetType="{x:Type map:MapItemsControl}">
-            <Setter Property="ItemContainerStyle">
-                <Setter.Value>
-                    <Style TargetType="map:MapItem">
-                        <Setter Property="Location" Value="{Binding Location}" />
-                        <Setter Property="HorizontalAlignment" Value="Center" />
-                        <Setter Property="VerticalAlignment" Value="Center" />
-                    </Style>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <Style TargetType="TextBlock" x:Key="mapItemTB">
-            <Setter Property="Text" Value="{Binding Name}"/>
-            <Setter Property="Foreground" Value="SeaGreen"/>
-            <Setter Property="FontSize" Value="15"/>
-            <Setter Property="FontFamily" Value="Century"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-        </Style>
-
-        <Style TargetType="Image" x:Key="mapItemImage">
-            <Setter Property="Width" Value="32"/>
-            <Setter Property="Height" Value="32"/>
-            <Setter Property="RenderTransformOrigin" Value="0.5, 0.5"/>
-        </Style>
     </Window.Resources>
     
     <!--main grid-->
@@ -263,58 +237,9 @@
             </ListBox.Resources>
         </ListBox>
 
-        <!--map-->
-        <Border Grid.Column="1" Grid.Row="0"
-                Grid.RowSpan="2"
-                Margin="10"
-                CornerRadius="10"
-                BorderBrush="#9DACCC"
-                BorderThickness="5"
-                ClipToBounds="True">
-
-            <map:Map x:Name="map"
-                     ZoomLevel="5"
-                     Center="46.4825,30.7233">
-
-                <!--map layer (geoapify)-->
-                <map:MapTileLayer>
-                    <map:MapTileLayer.TileSource>
-                        <map:TileSource UriTemplate="https://maps.geoapify.com/v1/tile/osm-bright/{z}/{x}/{y}.png?apiKey=2fa30e45fcef44c08a912bc9ab6664ba" />
-                    </map:MapTileLayer.TileSource>
-                </map:MapTileLayer>
-
-                <!--map vessel objects-->
-                <map:MapItemsControl ItemsSource="{Binding Vessels}">
-                    <map:MapItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Vertical">
-                                <Image Style="{StaticResource mapItemImage}"
-                                       Source="/Images/vessel.png"
-                                       RenderOptions.BitmapScalingMode="HighQuality"/>
-                                <TextBlock Style="{StaticResource mapItemTB}"
-                                           Margin="0,-5,0,0"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </map:MapItemsControl.ItemTemplate>
-                </map:MapItemsControl>
-
-                <!--map port objects-->
-                <map:MapItemsControl ItemsSource="{Binding Ports}">
-                    <map:MapItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Vertical">
-                                <Image Style="{StaticResource mapItemImage}"
-                                       Source="/Images/port.png"
-                                       RenderOptions.BitmapScalingMode="HighQuality"/>
-                                <TextBlock Style="{StaticResource mapItemTB}"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </map:MapItemsControl.ItemTemplate>
-                </map:MapItemsControl>
-            </map:Map>
-
-        </Border>
-
+        <!--active voyages-->
+        <DataGrid Grid.Row="1" 
+                  Grid.Column="1"></DataGrid>
         <!--control panel-->
         <!--vessel-->
         <StackPanel x:Name="vesselPanel"
