@@ -9,9 +9,10 @@ namespace Sea_Transportation_Management_System.Model.Vessels
     {
         public Storage Storage { get; }
 
-        public ContainerShip(int id, string? name, float fuelCapacity, double maxWeight, int maxItems) : base(id, name, fuelCapacity)
+        public ContainerShip(int id, string? name, float fuelCapacity, Port currentPort, double maxWeight, int maxItems) : base(id, name, fuelCapacity, currentPort)
         {
             Storage = new Storage(maxWeight, maxItems);
+            _typeOfTransportable = typeof(Container);
         }
 
         public override double CalculateFuelConsumption(double distance)
@@ -26,19 +27,16 @@ namespace Sea_Transportation_Management_System.Model.Vessels
         {
             if (cont is not Container container)
             {
-                MessageBox.Show("You can only load containers on this type of vessel");
-                return;
+                throw new Exception("You can only load containers on this type of vessel");
             }
 
             if (Storage.CurrentWeight + container.Weight > Storage.MaxWeightCapacity)
             {
-                MessageBox.Show($"Weight of container \"{container.ContainerSign}\" exceeds the capacity limit");
-                return;
+                throw new Exception($"Weight of container \"{container.ContainerSign}\" exceeds the capacity limit");
             }
             else if (Storage.CurrentItemCount == Storage.MaxItemCount)
             {
-                MessageBox.Show($"Container \"{container.ContainerSign}\" is full");
-                return;
+                throw new Exception($"Container \"{container.ContainerSign}\" is full");
             }
             Storage.AddItem(container);
         }
@@ -46,6 +44,7 @@ namespace Sea_Transportation_Management_System.Model.Vessels
         public void UnloadCargo(ITransportable cont)
         {
             Storage.RemoveItem(cont);
+            OnPropertyChanged(nameof(Storage));
         }
         public void ViewCargo()
         {

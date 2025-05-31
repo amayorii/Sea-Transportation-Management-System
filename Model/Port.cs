@@ -5,11 +5,12 @@ using Sea_Transportation_Management_System.Model.Vessels;
 
 namespace Sea_Transportation_Management_System.Model
 {
-    public class Port : IRefuelable, ICargo, INotifyPropertyChanged
+    public class Port : IRefuelable, IStoragable, INotifyPropertyChanged
     {
         private int _id;
         private string _name;
         private Location _location;
+        private List<Vessel> _vessels;
         private float _fuelStock;
 
         public Port(int id, string? name, Location location, float fuelStock, double warehouseCapacity, int maxItems)
@@ -19,6 +20,7 @@ namespace Sea_Transportation_Management_System.Model
             Location = location;
             FuelStock = fuelStock;
             Storage = new Storage(warehouseCapacity, maxItems);
+            _vessels = [];
         }
 
         public int Id
@@ -57,6 +59,15 @@ namespace Sea_Transportation_Management_System.Model
                 OnPropertyChanged(nameof(FuelStock));
             }
         }
+        public List<Vessel> VesselsInPort
+        {
+            get { return _vessels; }
+            set
+            {
+                _vessels = value;
+                OnPropertyChanged(nameof(VesselsInPort));
+            }
+        }
         public Storage Storage { get; }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -92,6 +103,16 @@ namespace Sea_Transportation_Management_System.Model
             FuelStock -= amount;
             vessel.Refuel(amount);
         }
+        public void AttachVessel(Vessel vessel)
+        {
+            VesselsInPort.Add(vessel);
+            OnPropertyChanged(nameof(VesselsInPort));
+        }
+        public void DetachVessel(Vessel vessel)
+        {
+            VesselsInPort.Remove(vessel);
+            OnPropertyChanged(nameof(VesselsInPort));
+        }
         public override string ToString()
         {
             return $"Id: {Id}\n{"Name:",-7}{Name.Length switch
@@ -99,22 +120,7 @@ namespace Sea_Transportation_Management_System.Model
                 > 15 => $"{Name}\t",
                 < 3 => $"{Name,-20}\t\t",
                 _ => $"{Name,-10}\t\t"
-            }}Fuel stock: {FuelStock}\nWarehouse capacity: {Storage.CurrentWeight}\nLocation: {Location.Latitude}  {Location.Longitude}";
-        }
-
-        public void LoadCargo(ITransportable transportable)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UnloadCargo(ITransportable transportable)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ViewCargo()
-        {
-            throw new NotImplementedException();
+            }}Fuel stock: {FuelStock}\nVessels in port: {VesselsInPort.Count}\nWarehouse capacity: {Storage.CurrentWeight}\nLocation: {Location.Latitude}  {Location.Longitude}";
         }
     }
 }

@@ -1,11 +1,16 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using Sea_Transportation_Management_System.Model.Interfaces;
 
 namespace Sea_Transportation_Management_System.Model
 {
-    public class Storage
+    public class Storage : INotifyPropertyChanged
     {
-        public ObservableCollection<ITransportable> Items { get; }
+        private readonly ObservableCollection<ITransportable> _items;
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        public ReadOnlyObservableCollection<ITransportable> Items { get; }
         public double MaxWeightCapacity { get; }
         public int MaxItemCount { get; }
 
@@ -16,20 +21,30 @@ namespace Sea_Transportation_Management_System.Model
         {
             MaxWeightCapacity = maxWeightCapacity;
             MaxItemCount = maxItemCount;
-            Items = [];
+            _items = [];
+            Items = new ReadOnlyObservableCollection<ITransportable>(_items);
         }
 
         public void AddItem(ITransportable item)
         {
             if (CurrentWeight + item.Weight <= MaxWeightCapacity && item != null)
             {
-                Items.Add(item);
+                _items.Add(item);
+                OnPropertyChanged(nameof(CurrentWeight));
+                OnPropertyChanged(nameof(CurrentItemCount));
             }
         }
 
         public void RemoveItem(ITransportable item)
         {
-            Items.Remove(item);
+            _items.Remove(item);
+            OnPropertyChanged(nameof(CurrentWeight));
+            OnPropertyChanged(nameof(CurrentItemCount));
+        }
+        protected void OnPropertyChanged(string propName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Items)));
         }
     }
 }

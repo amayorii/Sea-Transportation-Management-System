@@ -15,26 +15,23 @@ public abstract class Vessel : IRefuelable, INotifyPropertyChanged
     private int _id;
     private string _name;
     private Location _location;
+    private Port _currentPort;
     private float _fuel;
     private VesselStatus _status;
     private float _fuelCapacity;
+    protected Type _typeOfTransportable = null;
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
-    public Location Location
-    {
-        get { return _location; }
-        set
-        {
-            _location = value;
-            OnPropertyChanged(nameof(Location));
-        }
-    }
-    public Vessel(int id, string name, float fuelCapacity)
+    public Vessel(int id, string name, float fuelCapacity, Port currentPort)
     {
         Name = name;
         Id = id;
         FuelCapacity = fuelCapacity;
+        CurrentPort = currentPort;
+        currentPort.AttachVessel(this);
+        Location = CurrentPort.Location;
+        Status = VesselStatus.WaitingInPort;
     }
     public string Name
     {
@@ -86,6 +83,31 @@ public abstract class Vessel : IRefuelable, INotifyPropertyChanged
             }
             _fuelCapacity = value;
             OnPropertyChanged(nameof(FuelCapacity));
+        }
+    }
+
+    public Type TypeOfTransportable
+    {
+        get { return _typeOfTransportable; }
+    }
+
+    public Location Location
+    {
+        get { return _location; }
+        set
+        {
+            _location = value;
+            OnPropertyChanged(nameof(Location));
+        }
+    }
+
+    public Port CurrentPort
+    {
+        get { return _currentPort; }
+        set
+        {
+            _currentPort = value;
+            OnPropertyChanged(nameof(CurrentPort));
         }
     }
     public string Info => ToString();

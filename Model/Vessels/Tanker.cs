@@ -5,12 +5,13 @@ using Sea_Transportation_Management_System.Model.Transportable;
 
 namespace Sea_Transportation_Management_System.Model.Vessels
 {
-    class Tanker : Vessel, ICargo
+    public class Tanker : Vessel, ICargo
     {
         public Storage Storage { get; }
-        public Tanker(int id, string? name, float fuelCapacity, double maxWeight, int maxItems) : base(id, name, fuelCapacity)
+        public Tanker(int id, string? name, float fuelCapacity, Port currentPort, double maxWeight, int maxItems) : base(id, name, fuelCapacity, currentPort)
         {
             Storage = new Storage(maxWeight, maxItems);
+            _typeOfTransportable = typeof(Barrel);
         }
 
         public override double CalculateFuelConsumption(double distance)
@@ -25,21 +26,24 @@ namespace Sea_Transportation_Management_System.Model.Vessels
         {
             if (transportable is not Barrel barrel)
             {
-                MessageBox.Show("You can only load barrels on this type of vessel");
-                return;
+                throw new Exception("You can only load barrels on this type of vessel");
             }
 
             if (Storage.CurrentWeight + barrel.Weight > Storage.MaxWeightCapacity)
             {
-                MessageBox.Show($"Weight of barrel \"{barrel.Id}\" exceeds the capacity limit");
-                return;
+                throw new Exception($"Weight of barrel \"{barrel.Id}\" exceeds the capacity limit");
+            }
+            else if (Storage.CurrentItemCount == Storage.MaxItemCount)
+            {
+                throw new Exception($"Storage is full");
             }
             Storage.AddItem(barrel);
         }
 
         public void UnloadCargo(ITransportable transportable)
         {
-            throw new NotImplementedException();
+            Storage.RemoveItem(transportable);
+            OnPropertyChanged(nameof(Storage));
         }
 
         public void ViewCargo()
