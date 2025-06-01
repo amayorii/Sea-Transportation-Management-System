@@ -12,6 +12,7 @@ namespace Sea_Transportation_Management_System.Model
         private Location _location;
         private List<Vessel> _vessels;
         private float _fuelStock;
+        private Storage _storage;
 
         public Port(int id, string? name, Location location, float fuelStock, double warehouseCapacity, int maxItems)
         {
@@ -21,6 +22,10 @@ namespace Sea_Transportation_Management_System.Model
             FuelStock = fuelStock;
             Storage = new Storage(warehouseCapacity, maxItems);
             _vessels = [];
+            Storage.PropertyChanged += (s, e) =>
+            {
+                OnPropertyChanged(nameof(Info));
+            };
         }
 
         public int Id
@@ -68,7 +73,15 @@ namespace Sea_Transportation_Management_System.Model
                 OnPropertyChanged(nameof(VesselsInPort));
             }
         }
-        public Storage Storage { get; }
+        public Storage Storage
+        {
+            get { return _storage; }
+            set
+            {
+                _storage = value;
+                OnPropertyChanged(nameof(Storage));
+            }
+        }
 
         public event PropertyChangedEventHandler? PropertyChanged;
         public string Info => ToString();

@@ -9,7 +9,7 @@ namespace Sea_Transportation_Management_System.View
     /// </summary>
     public partial class ViewStorageWindow : Window
     {
-        public ViewStorageWindow(ICargo storagable)
+        public ViewStorageWindow(IStoragable storagable)
         {
             InitializeComponent();
             DataContext = new StorageViewModel(storagable);

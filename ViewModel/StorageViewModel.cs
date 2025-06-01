@@ -7,7 +7,7 @@ namespace Sea_Transportation_Management_System.ViewModel
     public class StorageViewModel
     {
         public object CurrentView { get; set; }
-        public StorageViewModel(ICargo storagable)
+        public StorageViewModel(IStoragable storagable)
         {
             if (storagable is Vessel)
                 CurrentView = new VesselStorageViewModel(storagable);

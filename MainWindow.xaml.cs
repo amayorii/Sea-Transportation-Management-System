@@ -66,12 +66,13 @@ public partial class MainWindow : Window
 
     private void ViewCargoClick(object sender, RoutedEventArgs e)
     {
-        ViewStorageWindow viewStorageWindow = null!;
+        ViewStorageWindow viewStorageWindow = null;
         if (viewCargoBtn.IsEnabled && !vesselsBtn.IsEnabled)
             viewStorageWindow = new ViewStorageWindow(vesselsList.SelectedItem as ICargo);
         else if (viewWarehouseBtn.IsEnabled && !portsBtn.IsEnabled)
-            viewStorageWindow = new ViewStorageWindow(portsList.SelectedItem as Port);
-        viewStorageWindow.ShowDialog();
+            viewStorageWindow = new ViewStorageWindow(portsList.SelectedItem as IStoragable);
+
+        viewStorageWindow?.ShowDialog();
     }
 
     private void PlanAVoyageClick(object sender, RoutedEventArgs e)
