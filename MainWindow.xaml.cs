@@ -94,4 +94,50 @@ public partial class MainWindow : Window
         deletePortBtn.IsEnabled = portsList.SelectedItem != null;
         viewWarehouseBtn.IsEnabled = portsList.SelectedItem != null;
     }
+
+    private void DeleteVessel(object sender, RoutedEventArgs e)
+    {
+        Vessel vessel = vesselsList.SelectedItem as Vessel;
+        if (vessel.Status != VesselStatus.WaitingInPort)
+            MessageBox.Show("Vessel must first be in port!");
+        else
+        {
+            if (vessel is ICargo)
+            {
+                if ((vessel as ICargo).Storage.CurrentItemCount != 0)
+                {
+                    MessageBox.Show("First you need to unload the vessel!");
+                    return;
+                }
+            }
+            if (MessageBox.Show("Are you sure?", "Deregister vessel", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                vessel.CurrentPort.DetachVessel(vessel);
+                var list = vesselsList.ItemsSource.Cast<Vessel>().ToList();
+                list.Remove(vessel);
+                vesselsList.ItemsSource = list;
+            }
+        }
+    }
+
+    private void DeletePort(object sender, RoutedEventArgs e)
+    {
+        Port port = portsList.SelectedItem as Port;
+        if (port.Storage.CurrentItemCount != 0)
+            MessageBox.Show("First you need to unload the port!");
+        else
+        {
+            if (MessageBox.Show("Are you sure?", "Deregister port", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                foreach (var vessel in port.VesselsInPort.ToList())
+                {
+                    port.DetachVessel(vessel);
+                    vessel.Status = VesselStatus.Unknown;
+                }
+                var list = portsList.ItemsSource.Cast<Port>().ToList();
+                list.Remove(port);
+                portsList.ItemsSource = list;
+            }
+        }
+    }
 }
