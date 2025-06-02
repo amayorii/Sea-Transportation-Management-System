@@ -131,7 +131,7 @@ namespace Sea_Transportation_Management_System.Model
             return $"Id: {Id}\n{"Name:",-7}{Name.Length switch
             {
                 > 15 => $"{Name}\t",
-                < 3 => $"{Name,-20}\t\t",
+                < 6 => $"{Name,-20}\t\t",
                 _ => $"{Name,-10}\t\t"
             }}Fuel stock: {FuelStock}\nVessels in port: {VesselsInPort.Count}\nWarehouse capacity: {Storage.CurrentWeight}\nLocation: {Location.Latitude}  {Location.Longitude}";
         }
