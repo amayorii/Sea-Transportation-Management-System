@@ -23,6 +23,10 @@ public abstract class Vessel : IRefuelable, INotifyPropertyChanged
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
+    public Vessel()
+    {
+        Id = App.Vessels.Last() == null ? 1 : App.Vessels.Last().Id + 1;
+    }
     public Vessel(int id, string name, float fuelCapacity, Port currentPort)
     {
         Name = name;
@@ -36,7 +40,7 @@ public abstract class Vessel : IRefuelable, INotifyPropertyChanged
     public string Name
     {
         get { return _name; }
-        protected set
+        set
         {
             _name = value;
             OnPropertyChanged(nameof(Name));
@@ -74,7 +78,7 @@ public abstract class Vessel : IRefuelable, INotifyPropertyChanged
     public float FuelCapacity
     {
         get { return _fuelCapacity; }
-        protected set
+        set
         {
             if (value < 50)
             {
@@ -133,7 +137,7 @@ public abstract class Vessel : IRefuelable, INotifyPropertyChanged
         return $"Id: {Id}\n{"Name:",-7}{Name.Length switch
         {
             > 15 => $"{Name}\t",
-            < 3 => $"{Name,-20}\t\t",
+            < 6 => $"{Name,-20}\t\t",
             _ => $"{Name,-10}\t\t"
         }}{"Fuel: ",-7}{Fuel}/{FuelCapacity}\n{"Type: ",-10}{GetType().Name,-10}\n{"Status: ",-10}{Status}";
     }

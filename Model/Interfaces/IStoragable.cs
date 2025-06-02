@@ -2,6 +2,6 @@
 {
     public interface IStoragable
     {
-        Storage Storage { get; }
+        Storage Storage { get; set; }
     }
 }

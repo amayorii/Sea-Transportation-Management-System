@@ -18,6 +18,7 @@ namespace Sea_Transportation_Management_System.Model.Vessels
                 _passengers = value;
             }
         }
+        public PassengerShip() : base() { }
         public PassengerShip(int id, string? name, float fuelCapacity, Port currentPort) : base(id, name, fuelCapacity, currentPort)
         {
 

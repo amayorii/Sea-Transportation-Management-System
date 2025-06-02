@@ -11,13 +11,12 @@
         WindowStyle="SingleBorderWindow"
         ResizeMode="NoResize">
     <Grid>
-        <!-- TODO IN WHICH PORT ITS REGISTERED -->
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition x:Name="storageRow" Height="0"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         
@@ -41,6 +40,7 @@
         <ComboBox HorizontalAlignment="Center" Grid.Row="1"
                   VerticalAlignment="Center"
                   x:Name="homePortBox"
+                  ItemsSource="{Binding Ports}"
                   Width="200"
                   Height="30"
                   Margin="0,25,0,0"
@@ -54,34 +54,19 @@
         <ComboBox HorizontalAlignment="Center" Grid.Row="2"
                   VerticalAlignment="Center"
                   x:Name="typeBox"
+                  ItemsSource="{Binding Types}"
                   Width="200"
                   Height="30"
                   Margin="0,25,0,0"
-                  FontSize="15"
-                  VerticalContentAlignment="Center">
-            <ComboBoxItem>ContainerShip</ComboBoxItem>
-            <ComboBoxItem>Tanker</ComboBoxItem>
-            <ComboBoxItem>PassengerShip</ComboBoxItem>
-        </ComboBox>
+                  FontSize="15" SelectionChanged="TypeChanged"
+                  VerticalContentAlignment="Center"/>
 
-        <Label Content="Capacity" Grid.Row="3"
+
+        <Label Content="Fuel capacity" Grid.Row="3"
                HorizontalAlignment="Center"
                VerticalAlignment="Top"
                FontSize="20"/>
         <TextBox HorizontalAlignment="Center" Grid.Row="3"
-                 VerticalAlignment="Center"
-                 x:Name="capacityBox"
-                 Width="200"
-                 Height="30"
-                 FontSize="15"
-                 Margin="0,25,0,0"
-                 VerticalContentAlignment="Center"/>
-
-        <Label Content="Fuel capacity" Grid.Row="4"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Top"
-               FontSize="20"/>
-        <TextBox HorizontalAlignment="Center" Grid.Row="4"
                  VerticalAlignment="Center"
                  x:Name="fuelBox"
                  Width="200"
@@ -89,7 +74,41 @@
                  FontSize="15"
                  Margin="0,25,0,0"
                  VerticalContentAlignment="Center"/>
-        
+
+        <Grid Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            
+            <StackPanel Orientation="Vertical">
+                <Label Content="Max capacity"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       FontSize="20"/>
+                <TextBox HorizontalAlignment="Center"
+                         VerticalAlignment="Center"
+                         x:Name="capacityBox"
+                         Width="125"
+                         Height="30"
+                         FontSize="15"
+                         VerticalContentAlignment="Center"/>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" Grid.Column="1">
+                <Label Content="Max items"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       FontSize="20"/>
+                <TextBox HorizontalAlignment="Center"
+                         VerticalAlignment="Center"
+                         x:Name="itemBox"
+                         Width="125"
+                         Height="30"
+                         FontSize="15"
+                         VerticalContentAlignment="Center"/>
+            </StackPanel>
+        </Grid>
+
         <Button Grid.Row="5"
                 FontSize="25"
                 HorizontalContentAlignment="Center"

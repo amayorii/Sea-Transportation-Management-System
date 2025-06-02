@@ -7,8 +7,12 @@ namespace Sea_Transportation_Management_System.Model.Vessels
 {
     public class ContainerShip : Vessel, ICargo
     {
-        public Storage Storage { get; }
+        public Storage Storage { get; set; } = new Storage(700, 30);
 
+        public ContainerShip() : base()
+        {
+            _typeOfTransportable = typeof(Container);
+        }
         public ContainerShip(int id, string? name, float fuelCapacity, Port currentPort, double maxWeight, int maxItems) : base(id, name, fuelCapacity, currentPort)
         {
             Storage = new Storage(maxWeight, maxItems);

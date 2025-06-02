@@ -32,7 +32,6 @@ namespace Sea_Transportation_Management_System.ViewModel
             cont.AddContent("haze");
             Port port = new Port(1, "Black Pearl", new Location(44.6500, 33.5200), 700, 1500, 50);
             port.Storage.AddItem(cont);
-            port.Storage.AddItem(cont1);
             port.Storage.AddItem(cont2);
             port.Storage.AddItem(new Barrel(1, new Water(75)));
             port.Storage.AddItem(new Barrel(2, new Fuel(100)));
