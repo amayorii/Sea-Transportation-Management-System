@@ -10,10 +10,12 @@ namespace Sea_Transportation_Management_System.ViewModel
     {
         public ObservableCollection<Vessel> Vessels { get; set; }
         public ObservableCollection<Port> Ports { get; set; }
-        public MainViewModel(ObservableCollection<Vessel> vessels, ObservableCollection<Port> ports)
+        public ObservableCollection<Voyage> Voyages { get; set; }
+        public MainViewModel(ObservableCollection<Vessel> vessels, ObservableCollection<Port> ports, ObservableCollection<Voyage> voyages)
         {
             Vessels = vessels;
             Ports = ports;
+            Voyages = voyages;
             Loaded();
         }
         private void Loaded()

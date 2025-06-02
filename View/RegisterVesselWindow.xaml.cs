@@ -24,25 +24,34 @@ namespace Sea_Transportation_Management_System.View
 
         private void Submit(object sender, RoutedEventArgs e)
         {
-            var type = typeBox.SelectedItem.ToString();
-            Vessel vessel = type switch
+            try
             {
-                "Tanker" => new Tanker(),
-                "PassengerShip" => new PassengerShip(),
-                "ContainerShip" => new ContainerShip(),
-                _ => throw new Exception($"Unknown vessel {type}")
-            };
-            vessel.Name = nameBox.Text;
-            vessel.Status = VesselStatus.WaitingInPort;
-            vessel.CurrentPort = App.Ports.Where(port => port.Name == homePortBox.SelectedItem.ToString()).Select(port => port).First();
-            vessel.FuelCapacity = (float)Convert.ToDouble(fuelBox.Text);
-            if (storagable)
-            {
-                ICargo cargoVessel = (ICargo)vessel;
-                cargoVessel.Storage = new Storage(Convert.ToDouble(capacityBox.Text), Convert.ToInt32(itemBox.Text));
-                vessels.Add(cargoVessel as Vessel);
+                var type = typeBox.SelectedItem.ToString();
+                Vessel vessel = type switch
+                {
+                    "Tanker" => new Tanker(),
+                    "PassengerShip" => new PassengerShip(),
+                    "ContainerShip" => new ContainerShip(),
+                    _ => throw new Exception($"Unknown vessel {type}")
+                };
+                vessel.Name = nameBox.Text;
+                vessel.Status = VesselStatus.WaitingInPort;
+                vessel.CurrentPort = App.Ports.Where(port => port.Name == homePortBox.SelectedItem.ToString()).Select(port => port).First();
+                vessel.FuelCapacity = (float)Convert.ToDouble(fuelBox.Text);
+                if (storagable)
+                {
+                    ICargo cargoVessel = (ICargo)vessel;
+                    cargoVessel.Storage = new Storage(Convert.ToDouble(capacityBox.Text), Convert.ToInt32(itemBox.Text));
+                    vessels.Add(cargoVessel as Vessel);
+                }
+
+                vessels.Add(vessel);
+                Close();
             }
-            vessels.Add(vessel);
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void TypeChanged(object sender, SelectionChangedEventArgs e)

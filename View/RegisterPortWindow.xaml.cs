@@ -17,13 +17,22 @@ namespace Sea_Transportation_Management_System.View
 
         private void Submit(object sender, RoutedEventArgs e)
         {
-            int id = ports.Last() == null ? 0 : ports.Last().Id + 1;
-            string name = nameBox.Text;
-            Location location = new Location(Convert.ToDouble(latitude.Text), Convert.ToDouble(longitude.Text));
-            float fuelStock = (float)Convert.ToDouble(fuelStockBox.Text);
-            double capacity = (float)Convert.ToDouble(capacityBox.Text);
-            int items = Convert.ToInt32(itemBox.Text);
-            ports.Add(new Port(id, name, location, fuelStock, capacity, items));
+            try
+            {
+                int id = ports.Count == 0 ? 1 : ports.Last().Id + 1;
+                string name = nameBox.Text;
+                Location location = new Location(Convert.ToDouble(latitude.Text), Convert.ToDouble(longitude.Text));
+                float fuelStock = (float)Convert.ToDouble(fuelStockBox.Text);
+                double capacity = (float)Convert.ToDouble(capacityBox.Text);
+                int items = Convert.ToInt32(itemBox.Text);
+
+                ports.Add(new Port(id, name, location, fuelStock, capacity, items));
+                Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

@@ -25,7 +25,7 @@ public abstract class Vessel : IRefuelable, INotifyPropertyChanged
 
     public Vessel()
     {
-        Id = App.Vessels.Last() == null ? 1 : App.Vessels.Last().Id + 1;
+        Id = App.Vessels.Count == 0 ? 1 : App.Vessels.Last().Id + 1;
     }
     public Vessel(int id, string name, float fuelCapacity, Port currentPort)
     {
