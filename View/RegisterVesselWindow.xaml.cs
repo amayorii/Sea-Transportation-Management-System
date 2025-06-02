@@ -43,6 +43,8 @@ namespace Sea_Transportation_Management_System.View
                     ICargo cargoVessel = (ICargo)vessel;
                     cargoVessel.Storage = new Storage(Convert.ToDouble(capacityBox.Text), Convert.ToInt32(itemBox.Text));
                     vessels.Add(cargoVessel as Vessel);
+                    Close();
+                    return;
                 }
 
                 vessels.Add(vessel);

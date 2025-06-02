@@ -18,6 +18,7 @@
             <GradientStop Color="#384C65" Offset="0.75" />
             <GradientStop Color="#C0C9DB" Offset="1.0" />
         </LinearGradientBrush>
+        <!-- button style -->
         <Style TargetType="Button">
             <Setter Property="Width" Value="150"/>
             <Setter Property="Height" Value="40"/>
@@ -119,7 +120,6 @@
                 </Setter.Value>
             </Setter>
             <Style.Triggers>
-                <!--ЗРОБИТЬ СТИЛЬ ЩОБ ПРИ НАТИСКАННІ НА КНОПКУ КОЛЬОРОВА АНІМАЦІЯ НЕ ВІДБУВАЛАСЬ-->
                 <MultiTrigger>
                     <MultiTrigger.Conditions>
                         <Condition Property="IsMouseOver" Value="True" />
@@ -163,6 +163,55 @@
                     <Setter Property="Background" Value="#A2CCFB"/>
                 </Trigger>
             </Style.Triggers>
+        </Style>
+        
+        <!--listview item style-->
+        <Style TargetType="ListViewItem">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontFamily" Value="Century Gothic"/>
+        </Style>
+        
+        <!--listview style-->
+        <Style TargetType="ListView">
+            <Setter Property="BorderBrush" Value="{StaticResource listFrame}"/>
+            <Setter Property="BorderThickness" Value="5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListView}">
+                        <Border CornerRadius="12"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                SnapsToDevicePixels="true">
+                            <ScrollViewer Style="{DynamicResource {x:Static GridView.GridViewScrollViewerStyleKey}}">
+                                <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                            </ScrollViewer>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        <!--column header style-->
+        <Style TargetType="{x:Type GridViewColumnHeader}">
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontFamily" Value="Century Gothic"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
+                        <Border BorderThickness="0,0,0,1" BorderBrush="Black" 
+                                Background="Transparent"
+                                CornerRadius="5">
+                            <TextBlock x:Name="ContentHeader" Text="{TemplateBinding Content}" Padding="10,0,10,0"
+                                       Width="{TemplateBinding Width}" FontSize="{TemplateBinding FontSize}"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
     </Window.Resources>
     
@@ -237,8 +286,42 @@
         </ListBox>
 
         <!--active voyages-->
-        <DataGrid Grid.Row="1" 
-                  Grid.Column="1"></DataGrid>
+        <Label Content="Voyages" Grid.Row="0" 
+               Grid.Column="1"
+               FontSize="30"
+               FontWeight="SemiBold"
+               FontFamily="Century"
+               Foreground="White"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               VerticalContentAlignment="Center"/>
+
+        <Border Grid.Row="1"
+                Grid.Column="1"
+                Margin="10,0,10,10">
+            <ListView ItemsSource="{Binding Voyages}">
+                <ListView.View>
+                    <GridView>
+                        <GridView.Columns>
+                            <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Id}"/>
+                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
+                            <GridViewColumn Header="Vessel" DisplayMemberBinding="{Binding Vessel.Name}"/>
+                            <GridViewColumn Header="From" DisplayMemberBinding="{Binding FromPort.Name}"/>
+                            <GridViewColumn Header="To" DisplayMemberBinding="{Binding ToPort.Name}"/>
+                            <GridViewColumn Header="Distance" DisplayMemberBinding="{Binding Distance}"/>
+                            <GridViewColumn Header="Departure" DisplayMemberBinding="{Binding DepartureDate}"/>
+                            <GridViewColumn Header="Arrival" DisplayMemberBinding="{Binding ArrivalDate}"/>
+                        </GridView.Columns>
+                    </GridView>
+                </ListView.View>
+                <ListView.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="12"/>
+                    </Style>
+                </ListView.Resources>
+            </ListView>
+        </Border>
+
         <!--control panel-->
         <!--vessel-->
         <StackPanel x:Name="vesselPanel"
