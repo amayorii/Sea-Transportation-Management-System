@@ -4,6 +4,5 @@
     {
         public void LoadCargo(ITransportable transportable);
         public void UnloadCargo(ITransportable transportable);
-        public void ViewCargo();
     }
 }

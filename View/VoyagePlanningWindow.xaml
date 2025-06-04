@@ -42,6 +42,7 @@
                   x:Name="vesselBox"
                   SelectionChanged="VesselSelectionChanged"
                   ItemsSource="{Binding Vessels}"
+                  SelectedItem="{Binding SelectedVessel, Mode=TwoWay}"
                   Width="200"
                   Height="30"
                   Margin="0,25,0,0"
@@ -60,19 +61,16 @@
             <Label Content="From"
                    VerticalAlignment="Center"
                    FontSize="20"/>
-            <ComboBox VerticalAlignment="Center"
-                      x:Name="fromPortBox"
-                      SelectionChanged="FromSelectionChanged"
-                      ItemsSource="{Binding Ports}"
-                      Width="200"
-                      Height="30"
-                      FontSize="15"
-                      VerticalContentAlignment="Center"/>
+            <Label VerticalAlignment="Center"
+                   x:Name="fromPortBox"
+                   Content="{Binding FromPortName}"
+                   FontSize="20"/>
 
             <Label Content="To"
                    FontSize="20"/>
             <ComboBox HorizontalAlignment="Center" Grid.Row="2"
                       VerticalAlignment="Center"
+                      IsEnabled="False"
                       x:Name="toPortBox"
                       SelectionChanged="ToSelectionChanged"
                       ItemsSource="{Binding Ports}"

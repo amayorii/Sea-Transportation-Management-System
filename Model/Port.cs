@@ -93,8 +93,25 @@ namespace Sea_Transportation_Management_System.Model
 
         public double CalculateDistanceTo(Port port)
         {
-            return Math.Sqrt(Math.Pow(port.Location.Latitude - Location.Latitude, 2) + Math.Pow(port.Location.Longitude - Location.Longitude, 2));
+            double R = 6371; // earth радіус в км
+            double latDiff = DegToRad(port.Location.Latitude - this.Location.Latitude);
+            double lonDiff = DegToRad(port.Location.Longitude - this.Location.Longitude);
+
+            double haversine = Math.Sin(latDiff / 2) * Math.Sin(latDiff / 2) +
+                       Math.Cos(DegToRad(this.Location.Latitude)) * Math.Cos(DegToRad(port.Location.Latitude)) *
+                       Math.Sin(lonDiff / 2) * Math.Sin(lonDiff / 2);
+
+            double c = 2 * Math.Atan2(Math.Sqrt(haversine), Math.Sqrt(1 - haversine));
+            double distance = R * c;
+
+            return distance;
         }
+
+        private static double DegToRad(double deg)
+        {
+            return deg * (Math.PI / 180);
+        }
+
         public void Refuel(float amount)
         {
             if (amount < 0)
@@ -106,15 +123,6 @@ namespace Sea_Transportation_Management_System.Model
                 }
             }
             FuelStock += amount;
-        }
-        public void RefuelVessel(Vessel vessel, float amount)
-        {
-            if (FuelStock - amount < 0)
-            {
-                MessageBox.Show($"Cannot refuel {typeof(Vessel).Name} for {amount}. Fuel stock: {FuelStock}l");
-            }
-            FuelStock -= amount;
-            vessel.Refuel(amount);
         }
         public void AttachVessel(Vessel vessel)
         {

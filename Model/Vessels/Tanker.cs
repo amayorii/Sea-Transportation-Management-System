@@ -1,6 +1,4 @@
-﻿using System.Text;
-using System.Windows;
-using Sea_Transportation_Management_System.Model.Interfaces;
+﻿using Sea_Transportation_Management_System.Model.Interfaces;
 using Sea_Transportation_Management_System.Model.Transportable;
 
 namespace Sea_Transportation_Management_System.Model.Vessels
@@ -48,24 +46,6 @@ namespace Sea_Transportation_Management_System.Model.Vessels
         {
             Storage.RemoveItem(transportable);
             OnPropertyChanged(nameof(Storage));
-        }
-
-        public void ViewCargo()
-        {
-            if (Storage.CurrentItemCount == 0)
-                MessageBox.Show("The ship is empty.");
-
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine($"Cargo of \"{Name}\":");
-
-            foreach (var barrel in Storage.Items)
-            {
-                sb.AppendLine(barrel.ToString());
-            }
-
-            sb.AppendLine($"Total weight: {Storage.CurrentWeight} / {Storage.MaxWeightCapacity}");
-
-            MessageBox.Show(sb.ToString(), "Cargo", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }

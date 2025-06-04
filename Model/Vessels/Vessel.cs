@@ -139,6 +139,11 @@ public abstract class Vessel : IRefuelable, INotifyPropertyChanged
             > 15 => $"{Name}\t",
             < 6 => $"{Name,-20}\t\t",
             _ => $"{Name,-10}\t\t"
-        }}{"Fuel: ",-7}{Fuel}/{FuelCapacity}\n{"Type: ",-10}{GetType().Name,-10}\n{"Status: ",-10}{Status}";
+        }}{"Fuel: ",-7}{Fuel}/{FuelCapacity}\n{"Type: ",-10}{GetType().Name,-10}\n{"Status: ",-10}{Status switch
+        {
+            VesselStatus.WaitingInPort => $"\tCurrently at the {CurrentPort.Name}",
+            VesselStatus.OnVoyage => $"\tOn voyage",
+            _ => ""
+        }}";
     }
 }

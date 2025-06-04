@@ -15,6 +15,9 @@ namespace Sea_Transportation_Management_System.Model
             DepartureDate = departureDate;
             ArrivalDate = arrivalDate;
             Distance = fromPort.CalculateDistanceTo(toPort);
+            if (vessel.CalculateFuelConsumption(Distance) > vessel.Fuel)
+                throw new Exception("Not enough fuel for this voyage.");
+            Vessel.Status = VesselStatus.OnVoyage;
         }
 
         public int Id { get; protected set; }

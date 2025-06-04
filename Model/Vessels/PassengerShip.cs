@@ -28,10 +28,9 @@ namespace Sea_Transportation_Management_System.Model.Vessels
         {
             if (_passengers == default)
             {
-                MessageBox.Show("Input amount of passengers!");
-                return 0;
+                return distance;
             }
-            return distance;
+            return distance * (1 + _passengers * 0.005);
         }
     }
 }

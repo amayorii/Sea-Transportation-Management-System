@@ -3,6 +3,7 @@ using Sea_Transportation_Management_System.Model;
 using Sea_Transportation_Management_System.Model.Interfaces;
 using Sea_Transportation_Management_System.Model.Vessels;
 using Sea_Transportation_Management_System.View;
+using Sea_Transportation_Management_System.ViewModel;
 
 namespace Sea_Transportation_Management_System;
 
@@ -54,6 +55,11 @@ public partial class MainWindow : Window
 
     private void RefuelClick(object sender, RoutedEventArgs e)
     {
+        if ((vesselsList.SelectedItem as Vessel).Status == VesselStatus.OnVoyage)
+        {
+            MessageBox.Show("Vessel must be in port for refueling");
+            return;
+        }
         RefuelWindow refuelWindow = null;
 
         if (vesselRefuel.IsEnabled && !vesselsBtn.IsEnabled)
@@ -113,9 +119,7 @@ public partial class MainWindow : Window
             if (MessageBox.Show("Are you sure?", "Deregister vessel", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
                 vessel.CurrentPort.DetachVessel(vessel);
-                var list = vesselsList.ItemsSource.Cast<Vessel>().ToList();
-                list.Remove(vessel);
-                vesselsList.ItemsSource = list;
+                (DataContext as MainViewModel).Vessels.Remove(vessel);
             }
         }
     }
@@ -134,9 +138,7 @@ public partial class MainWindow : Window
                     port.DetachVessel(vessel);
                     vessel.Status = VesselStatus.Unknown;
                 }
-                var list = portsList.ItemsSource.Cast<Port>().ToList();
-                list.Remove(port);
-                portsList.ItemsSource = list;
+                (DataContext as MainViewModel).Ports.Remove(port);
             }
         }
     }

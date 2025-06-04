@@ -8,8 +8,32 @@ namespace Sea_Transportation_Management_System.ViewModel
 {
     public class MainViewModel : ViewModelBase
     {
-        public ObservableCollection<Vessel> Vessels { get; set; }
-        public ObservableCollection<Port> Ports { get; set; }
+        private ObservableCollection<Vessel> _vessels;
+        private ObservableCollection<Port> _ports;
+        public ObservableCollection<Vessel> Vessels
+        {
+            get
+            {
+                return _vessels;
+            }
+            set
+            {
+                _vessels = value;
+                OnPropertyChanged(nameof(Vessels));
+            }
+        }
+        public ObservableCollection<Port> Ports
+        {
+            get
+            {
+                return _ports;
+            }
+            set
+            {
+                _ports = value;
+                OnPropertyChanged(nameof(Ports));
+            }
+        }
         public ObservableCollection<Voyage> Voyages { get; set; }
         public MainViewModel(ObservableCollection<Vessel> vessels, ObservableCollection<Port> ports, ObservableCollection<Voyage> voyages)
         {
@@ -42,21 +66,19 @@ namespace Sea_Transportation_Management_System.ViewModel
             Ports.Add(port);
             Ports.Add(port1);
 
-            ContainerShip c1 = new ContainerShip(1, "Sea Queen", 320, port, 600, 30);
-            Tanker t1 = new Tanker(2, "Red Serpent", 600, port1, 1500, 30);
+            ContainerShip c1 = new ContainerShip(1, "Sea Queen", 900, port, 600, 30);
+            Tanker t1 = new Tanker(2, "Red Serpent", 700, port1, 1500, 30);
             PassengerShip p1 = new PassengerShip(3, "Human being", 1350, port1);
-            c1.Refuel(500);
+            c1.Refuel(800);
             c1.LoadCargo(cont);
             c1.LoadCargo(cont1);
             c1.LoadCargo(cont);
             t1.LoadCargo(new Barrel(1, new Oil(10)));
             t1.LoadCargo(new Barrel(2, new Water(500)));
             t1.LoadCargo(new Barrel(3, new Fuel(260)));
-            p1.Refuel(996);
+            p1.Refuel(780);
 
-            Voyage voyage1 = new Voyage(1, "Atlantic voyage", t1, port, port1, new DateTime(2025, 10, 21), new DateTime(2025, 10, 22));
             Voyage voyage2 = new Voyage(2, "North chase", c1, port1, port, new DateTime(2025, 11, 21), new DateTime(2025, 12, 05));
-            Voyages.Add(voyage1);
             Voyages.Add(voyage2);
             Vessels.Add(c1);
             Vessels.Add(t1);

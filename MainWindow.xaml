@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Sea_Transportation_Management_System"
         mc:Ignorable="d"
         Title="SeaTransportationMS" Height="700" Width="1200"
+        MinHeight="700" MinWidth="1200"
         WindowStartupLocation="CenterScreen"
         Background="#2E236C">
     
@@ -304,11 +305,11 @@
                     <GridView>
                         <GridView.Columns>
                             <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Id}"/>
-                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
-                            <GridViewColumn Header="Vessel" DisplayMemberBinding="{Binding Vessel.Name}"/>
-                            <GridViewColumn Header="From" DisplayMemberBinding="{Binding FromPort.Name}"/>
-                            <GridViewColumn Header="To" DisplayMemberBinding="{Binding ToPort.Name}"/>
-                            <GridViewColumn Header="Distance" DisplayMemberBinding="{Binding Distance}"/>
+                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="115"/>
+                            <GridViewColumn Header="Vessel" DisplayMemberBinding="{Binding Vessel.Name}" Width="115"/>
+                            <GridViewColumn Header="From" DisplayMemberBinding="{Binding FromPort.Name}" Width="100"/>
+                            <GridViewColumn Header="To" DisplayMemberBinding="{Binding ToPort.Name}" Width="100"/>
+                            <GridViewColumn Header="Distance" DisplayMemberBinding="{Binding Distance, StringFormat={}{0:F2} km}"/>
                             <GridViewColumn Header="Departure" DisplayMemberBinding="{Binding DepartureDate}"/>
                             <GridViewColumn Header="Arrival" DisplayMemberBinding="{Binding ArrivalDate}"/>
                         </GridView.Columns>
