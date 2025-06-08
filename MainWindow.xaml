@@ -19,6 +19,15 @@
             <GradientStop Color="#384C65" Offset="0.75" />
             <GradientStop Color="#C0C9DB" Offset="1.0" />
         </LinearGradientBrush>
+        <!--label style-->
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="FontFamily" Value="Century"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
         <!-- button style -->
         <Style TargetType="Button">
             <Setter Property="Width" Value="150"/>
@@ -101,6 +110,8 @@
             <Setter Property="BorderBrush" Value="{StaticResource listFrame}"/>
             <Setter Property="Background" Value="#433D8B"/>
             <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="10,0,10,10"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
         </Style>
 
         <Style TargetType="ListBoxItem">
@@ -232,13 +243,7 @@
                Grid.Column="0"
                x:Name="vesselsBtn"
                IsEnabled="False"
-               FontSize="30"
-               FontWeight="SemiBold"
-               FontFamily="Century"
-               Foreground="White"
                HorizontalAlignment="Left"
-               VerticalAlignment="Center"
-               VerticalContentAlignment="Center"
                Margin="75,0,0,0"
                MouseLeftButtonDown="VesselsBtn_MouseLeftButtonDown"
                Cursor="Hand"/>
@@ -246,13 +251,7 @@
         <Label Content="Ports" Grid.Row="0"
                Grid.Column="0"
                x:Name="portsBtn"
-               FontSize="30"
-               FontWeight="SemiBold"
-               FontFamily="Century"
-               Foreground="White"
                HorizontalAlignment="Right"
-               VerticalAlignment="Center"
-               VerticalContentAlignment="Center"
                Margin="0,0,75,0"
                MouseLeftButtonDown="PortsBtn_MouseLeftButtonDown"
                Cursor="Hand"/>
@@ -261,9 +260,7 @@
         <ListBox x:Name="vesselsList"
                  ItemsSource="{Binding Vessels}"
                  SelectionChanged="VesselsList_SelectionChanged"
-                 Grid.Row="1"
-                 Margin="10,0,10,10"
-                 ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                 Grid.Row="1">
             <ListBox.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="12"/>
@@ -276,9 +273,7 @@
                  ItemsSource="{Binding Ports}"
                  SelectionChanged="PortsList_SelectionChanged"
                  Visibility="Hidden"
-                 Grid.Row="1"
-                 Margin="10,0,10,10"
-                 ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                 Grid.Row="1">
             <ListBox.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="12"/>

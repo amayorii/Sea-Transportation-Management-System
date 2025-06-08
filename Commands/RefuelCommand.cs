@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 using Sea_Transportation_Management_System.Model;
+using Sea_Transportation_Management_System.Model.Interfaces;
 using Sea_Transportation_Management_System.Model.Vessels;
 
 namespace Sea_Transportation_Management_System.Commands
@@ -8,8 +9,8 @@ namespace Sea_Transportation_Management_System.Commands
     public class RefuelCommand : ICommand
     {
         public event EventHandler? CanExecuteChanged;
-        readonly object refuelable;
-        public RefuelCommand(object refuelable)
+        private readonly IRefuelable refuelable;
+        public RefuelCommand(IRefuelable refuelable)
         {
             this.refuelable = refuelable;
         }

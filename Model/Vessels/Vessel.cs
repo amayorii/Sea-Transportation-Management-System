@@ -10,6 +10,7 @@ public enum VesselStatus
     WaitingInPort,
     OnVoyage
 }
+
 public abstract class Vessel : IRefuelable, INotifyPropertyChanged
 {
     private int _id;
@@ -19,7 +20,7 @@ public abstract class Vessel : IRefuelable, INotifyPropertyChanged
     private float _fuel;
     private VesselStatus _status;
     private float _fuelCapacity;
-    protected Type _typeOfTransportable = null;
+    protected Type _typeOfTransportable = null!;
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -82,8 +83,7 @@ public abstract class Vessel : IRefuelable, INotifyPropertyChanged
         {
             if (value < 50)
             {
-                MessageBox.Show("Fuel capacity must be at least 50!");
-                return;
+                throw new Exception("Fuel capacity must be at least 50!");
             }
             _fuelCapacity = value;
             OnPropertyChanged(nameof(FuelCapacity));

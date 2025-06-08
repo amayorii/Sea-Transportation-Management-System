@@ -8,32 +8,8 @@ namespace Sea_Transportation_Management_System.ViewModel
 {
     public class MainViewModel : ViewModelBase
     {
-        private ObservableCollection<Vessel> _vessels;
-        private ObservableCollection<Port> _ports;
-        public ObservableCollection<Vessel> Vessels
-        {
-            get
-            {
-                return _vessels;
-            }
-            set
-            {
-                _vessels = value;
-                OnPropertyChanged(nameof(Vessels));
-            }
-        }
-        public ObservableCollection<Port> Ports
-        {
-            get
-            {
-                return _ports;
-            }
-            set
-            {
-                _ports = value;
-                OnPropertyChanged(nameof(Ports));
-            }
-        }
+        public ObservableCollection<Vessel> Vessels { get; set; }
+        public ObservableCollection<Port> Ports { get; set; }
         public ObservableCollection<Voyage> Voyages { get; set; }
         public MainViewModel(ObservableCollection<Vessel> vessels, ObservableCollection<Port> ports, ObservableCollection<Voyage> voyages)
         {
@@ -45,7 +21,7 @@ namespace Sea_Transportation_Management_System.ViewModel
         private void Loaded()
         {
             Container cont = new Container(1, "Sand", 100);
-            cont.AddContent("Nigger");
+            cont.AddContent("Sand");
             cont.AddContent("Stefan");
             cont.AddContent("Aria");
             Container cont1 = new Container(2, "German", 150);
@@ -78,7 +54,7 @@ namespace Sea_Transportation_Management_System.ViewModel
             t1.LoadCargo(new Barrel(3, new Fuel(260)));
             p1.Refuel(780);
 
-            Voyage voyage2 = new Voyage(2, "North chase", c1, port1, port, new DateTime(2025, 11, 21), new DateTime(2025, 12, 05));
+            Voyage voyage2 = new Voyage(1, "North chase", c1, port1, port, new DateTime(2025, 11, 21), new DateTime(2025, 12, 05));
             Voyages.Add(voyage2);
             Vessels.Add(c1);
             Vessels.Add(t1);
